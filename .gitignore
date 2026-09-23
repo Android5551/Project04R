@@ -1,0 +1,10 @@
+# Eclipse workspace metadata
+.metadata/
+
+Servers/
+
+# Eclipse project build output
+**/bin/
+
+# Java compiled classes
+**/*.class
