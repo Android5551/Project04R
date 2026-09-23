@@ -8,3 +8,5 @@ Servers/
 
 # Java compiled classes
 **/*.class
+
+target/
