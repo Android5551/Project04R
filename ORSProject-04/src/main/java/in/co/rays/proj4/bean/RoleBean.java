@@ -28,7 +28,7 @@ public class RoleBean extends BaseBean{
 			setName(rs.getString("name")); // col name
 			setDescription(rs.getString("description"));
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		super.setResultSet(rs); // csuperall it to set rs to 
 	}

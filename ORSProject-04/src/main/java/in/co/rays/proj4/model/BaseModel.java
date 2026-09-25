@@ -78,7 +78,7 @@ public abstract class BaseModel<T extends BaseBean> {
 			ResultSet r = p.executeQuery();
 			while (r.next()) {
 				bean = getBean(); // returns Tbean object
-				bean.setResultSet(r); // takes all r from 72 and set in bean; all 5 of super + T's own
+				bean.setResultSet(r); // takes all r from 78 and set in bean; all 5 of super + T's own
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,7 +103,7 @@ public abstract class BaseModel<T extends BaseBean> {
 		System.out.println("sql -->"+s.toString());
 		try {
 			c = JDBCDataSource.getConnection();
-			PreparedStatement p = c.prepareStatement("select * from "+getTable()+" where 1 = 1");
+			PreparedStatement p = c.prepareStatement(s.toString());
 			ResultSet r = p.executeQuery();
 			while (r.next()) {
 				bean = getBean(); // new bean

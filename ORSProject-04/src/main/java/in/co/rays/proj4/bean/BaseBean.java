@@ -11,17 +11,18 @@ public abstract class BaseBean implements DropdownListBean{
 	classes making them concrete class.
 	*/
 	
-	protected Long id;
+	protected long id;
 	protected String createdBy;
     protected String modifiedBy;
     protected Timestamp createdDatetime;
     protected Timestamp modifiedDatetime;
     
 	
-	public Long getId() {
+	
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getCreatedBy() {

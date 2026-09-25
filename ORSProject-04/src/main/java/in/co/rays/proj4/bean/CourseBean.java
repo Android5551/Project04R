@@ -1,5 +1,8 @@
 package in.co.rays.proj4.bean;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class CourseBean extends BaseBean{
 	private String name;
     private String description;
@@ -33,6 +36,22 @@ public class CourseBean extends BaseBean{
 	public String getValue() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public void setResultSet(ResultSet rs) {
+		// getting rs and setting it to bean
+		try {
+			setName(rs.getString("name"));
+			setDescription(rs.getString("description"));
+			setDuration(rs.getString("duration"));
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		super.setResultSet(rs);
 	}
 
 }

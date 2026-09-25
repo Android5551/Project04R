@@ -1,9 +1,9 @@
 package in.co.rays.proj4.test;
 
-import java.util.Date;
-import java.util.List;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.model.RoleModel;
@@ -70,7 +70,22 @@ public class TestRoleModel {
 	// complete class
 	public static void testSearch() {
 		RoleBean b = new RoleBean();
-		List<RoleBean> l = m.search(, 0, 0);
+//		b.setName("admin");
+//		b.setId(2);
+		b.setDescription("KIOSK role");
+		List<RoleBean> l = m.search(b, 1, 5);
+		Iterator<RoleBean> i = l.iterator();
+		while (i.hasNext()) {
+			b = i.next();
+			System.out.println(b.getId());
+			System.out.println(b.getName());
+			System.out.println(b.getDescription());
+			System.out.println(b.getCreatedBy());
+			System.out.println(b.getModifiedBy());
+			System.out.println(b.getCreatedDatetime());
+			System.out.println(b.getModifiedDatetime());
+			System.out.println("--------------------");
+		}
 		
 	}
 }

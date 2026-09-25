@@ -1,8 +1,10 @@
 package in.co.rays.proj4.bean;
 
+import java.sql.ResultSet;
+
 public class MarksheetBean extends BaseBean{
 	private String rollNo;
-	private Long studentId;
+	private long studentId;
 	private String name;
 	private int physics;
 	private int chemistry;
@@ -13,10 +15,10 @@ public class MarksheetBean extends BaseBean{
 	public void setRollNo(String rollNo) {
 		this.rollNo = rollNo;
 	}
-	public Long getStudentId() {
+	public long getStudentId() {
 		return studentId;
 	}
-	public void setStudentId(Long studentId) {
+	public void setStudentId(long studentId) {
 		this.studentId = studentId;
 	}
 	public String getName() {
@@ -48,6 +50,31 @@ public class MarksheetBean extends BaseBean{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	/*roll_no, student_id, name, physics, 
+	 * chemistry, maths
+	 * */
 	
+	/*
+	 * private String rollNo;
+	private long studentId;
+	private String name;
+	private int physics;
+	private int chemistry;
+	private int maths;
+	 * */
+	@Override
+	public void setResultSet(ResultSet rs) {
+		try {
+			setRollNo(rs.getString("roll_no"));
+			setStudentId(rs.getLong("student_id"));
+			setName(rs.getString("name"));
+			setPhysics(rs.getInt("physics"));
+			setChemistry(rs.getInt("chemistry"));
+			setMaths(rs.getInt("maths"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		super.setResultSet(rs);
+	}
 	
 }

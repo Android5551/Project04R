@@ -1,5 +1,8 @@
 package in.co.rays.proj4.bean;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class CollegeBean extends BaseBean{
 	private String name;
     private String address;
@@ -51,5 +54,27 @@ public class CollegeBean extends BaseBean{
 	public String getValue() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	// id, name, address, state, city, phone_no,
+	//created_by, modified_by, created_datetime, 
+	// modified_datetime
+
+	@Override
+	public void setResultSet(ResultSet rs) {
+		// getting from rs and setting it to bean
+		// the baseBean has 5 common attributes
+		try {
+			setName(rs.getString("name"));
+			setAddress(rs.getString("address"));
+			setState(rs.getString("state"));
+			setCity(rs.getString("city"));
+			setPhoneNo(rs.getString("phone_no"));
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		super.setResultSet(rs);
 	}
 }

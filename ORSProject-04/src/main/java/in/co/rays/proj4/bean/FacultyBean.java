@@ -1,9 +1,11 @@
 package in.co.rays.proj4.bean;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class FacultyBean extends BaseBean{
-	private Long collegeId;
+	private long collegeId;
     private String collegeName;
     private String firstName;
     private String lastName;
@@ -13,11 +15,13 @@ public class FacultyBean extends BaseBean{
     private String gender;
     private Date dateOfBirth;
     
-	public Long getCollegeId() {
+	
+
+	public long getCollegeId() {
 		return collegeId;
 	}
 
-	public void setCollegeId(Long collegeId) {
+	public void setCollegeId(long collegeId) {
 		this.collegeId = collegeId;
 	}
 
@@ -89,5 +93,35 @@ public class FacultyBean extends BaseBean{
 	public String getValue() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	// college_id, college_name, first_name, last_name, email, mobile_no, 
+	// address, gender, date_of_birth
+//	private long collegeId;
+//    private String collegeName;
+//    private String firstName;
+//    private String lastName;
+//    private String email;
+//    private String mobileNo;
+//    private String address;
+//    private String gender;
+//    private Date dateOfBirth;
+	@Override
+	public void setResultSet(ResultSet rs) {
+		// getting from rs and setting to bean ; common ones are in basebean
+		try {
+			setCollegeId(rs.getLong("college_id"));
+			setCollegeName(rs.getString("college_name"));
+			setFirstName(rs.getString("first_name"));
+			setLastName(rs.getString("last_name"));
+			setEmail(rs.getString("email"));
+			setMobileNo(rs.getString("mobile_no"));
+			setAddress(rs.getString("address"));
+			setGender(rs.getString("gender"));
+			setDateOfBirth(rs.getDate("date_of_birth"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		super.setResultSet(rs);
 	}
 }

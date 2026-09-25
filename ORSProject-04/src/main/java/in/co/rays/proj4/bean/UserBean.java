@@ -1,5 +1,7 @@
 package in.co.rays.proj4.bean;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class UserBean extends BaseBean{
@@ -9,7 +11,7 @@ public class UserBean extends BaseBean{
     private String password;
     private Date dob;
     private String mobileNo;
-    private Long roleId;
+    private long roleId;
     private int unsuccessfulLogin;
     private String gender;
     private Date lastLogin;
@@ -65,11 +67,13 @@ public class UserBean extends BaseBean{
 		this.mobileNo = mobileNo;
 	}
 
-	public Long getRoleId() {
+	
+
+	public long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(Long roleId) {
+	public void setRoleId(long roleId) {
 		this.roleId = roleId;
 	}
 
@@ -126,7 +130,42 @@ public class UserBean extends BaseBean{
 		// TODO Auto-generated method stub
 		return null;
 	}
-    
+//first_name, last_name, login, password, dob, mobile_no, role_id, 
+	// unsuccessful_login, gender, 
+	// last_login, user_lock, registered_ip, 
+	//last_login_ip
+	/*
+	 * private String firstName; private String lastName; private String login;
+	 * private String password; private Date dob; private String mobileNo; private
+	 * Long roleId; private int unsuccessfulLogin; private String gender; 
+	 * private
+	 * Date lastLogin; private String userLock; private String registeredIp; private
+	 * String lastLoginIp;
+	 */
+	// getting from rs and setting in bean
+	@Override
+	public void setResultSet(ResultSet rs) {
+		try {
+			setFirstName(rs.getString("first_name"));
+			setLastName(rs.getString("last_name"));
+			setLogin(rs.getString("login"));
+			setPassword(rs.getString("password"));
+			setDob(rs.getDate("dob"));
+			setMobileNo(rs.getString("mobile_no"));
+			setRoleId(rs.getLong("role_id"));
+			setUnsuccessfulLogin(rs.getInt("unsuccessful_login"));
+			setGender(rs.getString("gender"));
+			setLastLogin(rs.getDate("last_login"));
+			setUserLock(rs.getString("user_lock"));
+			setRegisteredIp(rs.getString("registered_ip"));
+			setLastLoginIp(rs.getString("last_login_ip"));
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		super.setResultSet(rs);
+	}
 
 
 }

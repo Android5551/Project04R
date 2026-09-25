@@ -70,11 +70,11 @@ public class RoleModel extends BaseModel<RoleBean> {
 		}
 		
 	}
-
+	// search filter ; should be given in test
 	@Override
 	public String getWhereClause(RoleBean b) {
 		StringBuffer s = new StringBuffer("");
-		System.out.println(b);
+		
 		if (b != null) {
 			if (b.getId() > 0) {
 				s.append(" and id= " + b.getId());
