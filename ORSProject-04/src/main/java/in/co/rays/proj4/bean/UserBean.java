@@ -16,6 +16,7 @@ public class UserBean extends BaseBean{
     private String gender;
     private Date lastLogin;
     private String userLock;
+    
     private String registeredIp;
     private String lastLoginIp;
     
