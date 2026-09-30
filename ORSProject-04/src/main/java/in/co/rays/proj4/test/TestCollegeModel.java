@@ -12,11 +12,11 @@ public class TestCollegeModel {
 	public static CollegeModel m = new CollegeModel();
 	
 	public static void main(String[] args) {
-		testAdd();
+//		testAdd();
 		testUpdate();
-		testFindByPk();
-		testSearch();
-		testDelete();
+//		testFindByPk();
+//		testSearch();
+//		testDelete();
 	}
 
 	private static void testDelete() {
@@ -61,15 +61,15 @@ public class TestCollegeModel {
 
 	private static void testUpdate() {
 		CollegeBean b = new CollegeBean();
-		b.setId(0);
-		b.setName("");
-		b.setAddress("");
-		b.setState("");
-		b.setName("");
-		b.setCity("");
-		b.setPhoneNo("");
-		b.setCreatedBy("");
-		b.setModifiedBy("");
+		b.setId(1);
+		b.setName("Orlando Academy");
+		b.setAddress("BhavarKuan");
+		b.setState("Madhya Pradesh");
+		
+		b.setCity("Indore");
+		b.setPhoneNo("9843949444");
+		b.setCreatedBy("Piyush");
+		b.setModifiedBy("Piyush");
 		b.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		b.setModifiedDatetime(new Timestamp(new Date().getTime()));
 		m.update(b);
@@ -78,15 +78,14 @@ public class TestCollegeModel {
 
 	private static void testAdd() {
 		CollegeBean b = new CollegeBean();
-		b.setId(0);
-		b.setName("");
-		b.setAddress("");
-		b.setState("");
-		b.setName("");
-		b.setCity("");
-		b.setPhoneNo("");
-		b.setCreatedBy("");
-		b.setModifiedBy("");
+		b.setName("Dr M.G.R. University");
+		b.setAddress("Vijay Nagar");
+		b.setState("Madhya Pradesh");
+		
+		b.setCity("Indore");
+		b.setPhoneNo("7693991717");
+		b.setCreatedBy("Piyush");
+		b.setModifiedBy("Piyush");
 		b.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		b.setModifiedDatetime(new Timestamp(new Date().getTime()));
 

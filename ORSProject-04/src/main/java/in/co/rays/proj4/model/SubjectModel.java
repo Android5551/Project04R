@@ -3,6 +3,7 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -12,6 +13,10 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 
 	@Override
 	public long add(SubjectBean b) throws ApplicationException, DuplicateRecordException {
+		// CourseId
+		CourseModel cm = new CourseModel();
+		CourseBean cb = cm.findByPk(b.getCourseId());
+		
 		int pk = 0;
 		Connection c = null;
 		try {
@@ -21,7 +26,9 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 			PreparedStatement p = c.prepareStatement("insert into "+getTable()+" values("
 					+ "?,?,?,?,?,?,?,?)");
 			p.setLong(1, pk);
-			p.setString(2, b.getName());
+//			p.setString(2, b.getName());
+			p.setString(2, cb.getName());
+			
 			p.setString(3, b.getDescription());
 			p.setLong(4, b.getCourseId());
 			

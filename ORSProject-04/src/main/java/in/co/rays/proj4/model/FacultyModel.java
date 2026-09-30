@@ -3,6 +3,7 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.FacultyBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -12,6 +13,9 @@ public class FacultyModel extends BaseModel<FacultyBean>{
 
 	@Override
 	public long add(FacultyBean b) throws ApplicationException, DuplicateRecordException {
+		// college id fk
+		CollegeModel cm = new CollegeModel();
+		CollegeBean cb = cm.findByPk(b.getCollegeId());
 		int pk = 0;
 		Connection c = null;
 		try {
@@ -20,10 +24,11 @@ public class FacultyModel extends BaseModel<FacultyBean>{
 			c.setAutoCommit(false);
 			
 			PreparedStatement p = c.prepareStatement("insert into "+getTable()+
-					" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?");
+					" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			p.setLong(1, pk);
 			p.setLong(2, b.getCollegeId());
-			p.setString(3, b.getCollegeName());
+//			p.setString(3, b.getCollegeName());
+			p.setString(3, cb.getName());
 			p.setString(4, b.getFirstName());
 			p.setString(5, b.getLastName());
 			p.setString(6, b.getEmail());
@@ -50,17 +55,34 @@ public class FacultyModel extends BaseModel<FacultyBean>{
 
 	@Override
 	public void update(FacultyBean b) throws ApplicationException, DuplicateRecordException {
+		CollegeModel cm = new CollegeModel();
+		CollegeBean cb = cm.findByPk(b.getCollegeId());
 		Connection c = null;
 		try {
 			c = JDBCDataSource.getConnection();
 			c.setAutoCommit(false);
 			PreparedStatement p = c.prepareStatement("update "+getTable()+
-					"set college_id=?, college_name=?,"
+					" set college_id=?, college_name=?,"
 					+ "first_name=?, last_name=?, email=?,"
 					+ "mobile_no=?, address=?, gender=?,"
 					+ "date_of_birth=?, created_by=?,"
 					+ "modified_by=?, created_datetime=?,"
 					+ "modified_datetime=? where id=?");
+			p.setLong(1, b.getCollegeId());
+//			p.setString(2, b.getCollegeName());
+			p.setString(2, cb.getName());
+			p.setString(3, b.getFirstName());
+			p.setString(4, b.getLastName());
+			p.setString(5, b.getEmail());
+			p.setString(6, b.getMobileNo());
+			p.setString(7, b.getAddress());
+			p.setString(8, b.getGender());
+			p.setDate(9, new java.sql.Date(b.getDateOfBirth().getTime()));
+			p.setString(10, b.getCreatedBy());
+			p.setString(11, b.getModifiedBy());
+			p.setTimestamp(12, b.getCreatedDatetime());
+			p.setTimestamp(13, b.getModifiedDatetime());
+			p.setLong(14, b.getId());
 			int i = p.executeUpdate();
 			System.out.println(i+" row updated!");
 			JDBCDataSource.trnCommit(c);

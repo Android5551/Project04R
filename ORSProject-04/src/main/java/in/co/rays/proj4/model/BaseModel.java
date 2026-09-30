@@ -89,6 +89,31 @@ public abstract class BaseModel<T extends BaseBean> {
 		return bean;
 
 	}
+	// search by unique column common to all; only column changes
+	// column -> login value -> ram@gmail.com
+	public T findByUniqueColumn(String column, String value) {
+		Connection c = null;
+		T b = null;
+		try {
+			c = JDBCDataSource.getConnection();
+			c.setAutoCommit(false);
+			PreparedStatement p = c.prepareStatement("select * from "+getTable()
+					+ " where "+column+" = ?");
+			p.setString(1, value);
+			ResultSet r = p.executeQuery();
+			while(r.next()) {
+				b = getBean();
+				b.setResultSet(r);
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			JDBCDataSource.closeConnection(c);
+		}
+		return b;
+	}
 	
 	public List<T> search(T bean, int pageNo, int pageSize){
 		Connection c = null;

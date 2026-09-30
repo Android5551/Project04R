@@ -24,7 +24,7 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			 * String city; private String phoneNo;
 			 */
 			PreparedStatement p = c.prepareStatement("insert into " + getTable() +
-					"values(?,?,?,?,?,?,?,?,?,?)");
+					" values(?,?,?,?,?,?,?,?,?,?)");
 			// getting from bean , setting in p
 			p.setLong(1, pk);
 			p.setString(2, b.getName());
@@ -64,7 +64,7 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			 * id, name, address, state, city,
 			 * phone_no, created_by, modified_by, created_datetime, modified_datetime
 			 */
-			PreparedStatement p = c.prepareStatement("update " + getTable() + "set " 
+			PreparedStatement p = c.prepareStatement("update " + getTable() + " set " 
 			 + "name=?, address=?, state=?, city=?,"
 			 + "phone_no=?, created_by=?, modified_by=?,"
 			 + "created_datetime=?, modified_datetime=? "
@@ -80,7 +80,8 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			p.setTimestamp(8, b.getCreatedDatetime());
 			p.setTimestamp(9, b.getModifiedDatetime());
 			p.setLong(10, b.getId());
-			
+			int i = p.executeUpdate();
+			System.out.println(i+" row updated!");
 			JDBCDataSource.trnCommit(c);
 		} catch (Exception e) {
 			JDBCDataSource.trnRollBack(c);

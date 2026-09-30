@@ -4,25 +4,30 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import in.co.rays.proj4.bean.MarksheetBean;
+import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class MarksheetModel extends BaseModel <MarksheetBean>{
-
+	// student id
 	@Override
 	public long add(MarksheetBean b) throws ApplicationException, DuplicateRecordException {
+		StudentModel sm = new StudentModel();
+		StudentBean sb = sm.findByPk(b.getStudentId());
 		int pk = 0;
 		Connection c = null;
 		try {
 			c = JDBCDataSource.getConnection();
-			c.setAutoCommit(false);
-			PreparedStatement p = c.prepareStatement("insert into"+getTable()
+			c.setAutoCommit(false); // transaction begins
+			PreparedStatement p = c.prepareStatement("insert into "+getTable()
 					+ " values(?,?,?,?,?,?,?,?,?,?,?");
 			p.setLong(1, pk);
 			p.setString(2, b.getRollNo());
 			p.setLong(3, b.getStudentId());
-			p.setString(4,b.getName());
+			
+//			p.setString(4,b.getName());
+			p.setString(4, sb.getCollegeName());
 			p.setInt(5, b.getPhysics());
 			p.setInt(6,b.getChemistry());
 			p.setInt(7, b.getMaths());

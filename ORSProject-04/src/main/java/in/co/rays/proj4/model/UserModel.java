@@ -12,6 +12,8 @@ public class UserModel extends BaseModel<UserBean>{
 // getting from bean and setting in preparedStatement
 	@Override
 	public long add(UserBean b) throws ApplicationException, DuplicateRecordException {
+//		RoleModel r = new RoleModel();
+//		RoleBean rb = r.
 		// initialize connection
 		Connection c = null;
 		// initialize pk

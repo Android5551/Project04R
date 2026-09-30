@@ -10,17 +10,28 @@ import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class RoleModel extends BaseModel<RoleBean> {
+	// Role - findByName()
+	//
+	public RoleBean findByName(String name) {
+		RoleBean b = findByUniqueColumn("name", name); // col(name), val(admin)
+		return b;
+	}
 
 	@Override
 	public long add(RoleBean bean) {
 		Connection c = null;
 		int pk = 0;
+		// business validation find by unique column
+		RoleBean existBean = findByName(bean.getName()); // admin
+		if(existBean!=null) {
+			throw new DuplicateRecordException("role name already exists");
+		}
 		try {
 			pk = nextPk();
 			c = JDBCDataSource.getConnection();
-			c.setAutoCommit(false); //begin transaction
+			c.setAutoCommit(false); // begin transaction
 			PreparedStatement p = c.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?)");
-			
+
 			p.setLong(1, pk);
 			p.setString(2, bean.getName());
 			p.setString(3, bean.getDescription());
@@ -28,10 +39,10 @@ public class RoleModel extends BaseModel<RoleBean> {
 			p.setString(5, bean.getModifiedBy());
 			p.setTimestamp(6, bean.getCreatedDatetime());
 			p.setTimestamp(7, bean.getModifiedDatetime());
-			
+
 			int i = p.executeUpdate();
 			JDBCDataSource.trnCommit(c);
-			System.out.println(i+" row added!");
+			System.out.println(i + " row added!");
 		} catch (SQLException e) {
 			JDBCDataSource.trnRollBack(c);
 			e.printStackTrace();
@@ -44,10 +55,15 @@ public class RoleModel extends BaseModel<RoleBean> {
 	@Override
 	public void update(RoleBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection c = null;
+		RoleBean existBean = findByName(bean.getName());
+		// can only be false when need to update existBean id like 1=1
+		if(existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("role name already exists!");
+		}
 		try {
 			c = JDBCDataSource.getConnection();
 			c.setAutoCommit(false);
-			PreparedStatement p=c.prepareStatement("update "+getTable()+" set name= ?, "
+			PreparedStatement p = c.prepareStatement("update " + getTable() + " set name= ?, "
 					+ "description=?,created_by=?, modified_by=?, created_datetime=?,"
 					+ "modified_datetime=? where id=?");
 			p.setString(1, bean.getName());
@@ -57,24 +73,25 @@ public class RoleModel extends BaseModel<RoleBean> {
 			p.setTimestamp(5, bean.getCreatedDatetime());
 			p.setTimestamp(6, bean.getModifiedDatetime());
 			p.setLong(7, bean.getId());
-			
+
 			int i = p.executeUpdate();
 			JDBCDataSource.trnCommit(c);
-			System.out.println(i+" row updated!");
-			
-		}catch (Exception e) {
+			System.out.println(i + " row updated!");
+
+		} catch (Exception e) {
 			JDBCDataSource.trnRollBack(c);
 			e.printStackTrace();
 		} finally {
 			JDBCDataSource.closeConnection(c);
 		}
-		
+
 	}
+
 	// search filter ; should be given in test
 	@Override
 	public String getWhereClause(RoleBean b) {
 		StringBuffer s = new StringBuffer("");
-		
+
 		if (b != null) {
 			if (b.getId() > 0) {
 				s.append(" and id= " + b.getId());

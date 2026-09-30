@@ -3,6 +3,7 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -12,6 +13,8 @@ public class StudentModel extends BaseModel<StudentBean>{
 
 	@Override
 	public long add(StudentBean b) throws ApplicationException, DuplicateRecordException {
+		CollegeModel cm = new CollegeModel();
+		CollegeBean cb = cm.findByPk(b.getCollegeId());
 		int pk = 0;
 		Connection c = null;
 		try {
@@ -19,10 +22,11 @@ public class StudentModel extends BaseModel<StudentBean>{
 			c = JDBCDataSource.getConnection();
 			c.setAutoCommit(false);
 			PreparedStatement p = c.prepareStatement("insert into "+getTable()+" values("
-					+ "?,?,?,?,?,?,?,?,?,?,?)");
+					+ "?,?,?,?,?,?,?,?,?,?,?,?)");
 			p.setLong(1, pk);
 			p.setLong(2, b.getCollegeId());
-			p.setString(3, b.getCollegeName());
+//			p.setString(3, b.getCollegeName());
+			p.setString(3, cb.getName()); //college Bean
 			p.setString(4, b.getFirstName());
 			p.setString(5, b.getLastName());
 			p.setDate(6, new java.sql.Date(b.getDateOfBirth().getTime()));
@@ -38,6 +42,7 @@ public class StudentModel extends BaseModel<StudentBean>{
 			JDBCDataSource.trnCommit(c);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			JDBCDataSource.trnRollBack(c);
 		} finally {
 			JDBCDataSource.closeConnection(c);
@@ -52,8 +57,10 @@ public class StudentModel extends BaseModel<StudentBean>{
 			c = JDBCDataSource.getConnection();
 			c.setAutoCommit(false);
 			
-			PreparedStatement p=c.prepareStatement("insert into "+getTable()+" values("
-					+"?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement p=c.prepareStatement("update "+getTable()+" set college_id=?,"
+					+ "college_name=?, first_name=?,"
+					+ "last_name=?, date_of_birth=?,"
+					+ "mobile_no=?, email=? where id=?");
 			p.setLong(1, b.getCollegeId());
 			p.setString(2, b.getCollegeName());
 			p.setString(3, b.getFirstName());
@@ -65,6 +72,7 @@ public class StudentModel extends BaseModel<StudentBean>{
 			p.setString(9, b.getModifiedBy());
 			p.setTimestamp(10, b.getCreatedDatetime());
 			p.setTimestamp(11, b.getModifiedDatetime());
+			p.setLong(12, b.getId());
 			
 			int i = p.executeUpdate();
 			System.out.println(i+" row inserted!");
