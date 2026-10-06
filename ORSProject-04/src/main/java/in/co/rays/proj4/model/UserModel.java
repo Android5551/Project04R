@@ -16,6 +16,11 @@ public class UserModel extends BaseModel<UserBean>{
 //		RoleBean rb = r.
 		// initialize connection
 		Connection c = null;
+		UserBean existBean = findByLogin(b.getLogin());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("login already exist");
+		}
 		// initialize pk
 		int pk = 0;
 		try {
@@ -35,7 +40,8 @@ public class UserModel extends BaseModel<UserBean>{
 			p.setLong(8, b.getRoleId());
 			p.setInt(9, b.getUnsuccessfulLogin());
 			p.setString(10, b.getGender());
-			p.setDate(11, new java.sql.Date(b.getLastLogin().getTime()));
+//			p.setDate(11, new java.sql.Date(b.getLastLogin().getTime()));
+			p.setTimestamp(11, b.getLastLogin());
 			p.setString(12, b.getUserLock());
 			p.setString(13, b.getRegisteredIp());
 			p.setString(14, b.getLastLoginIp());
@@ -61,6 +67,11 @@ public class UserModel extends BaseModel<UserBean>{
 	@Override
 	public void update(UserBean b) throws ApplicationException, DuplicateRecordException {
 		Connection c = null;
+		UserBean existBean = findByLogin(b.getLogin());
+
+		if (existBean != null && existBean.getId() != b.getId()) {
+			throw new DuplicateRecordException("login already exist");
+		}
 		try {
 			c = JDBCDataSource.getConnection();
 			c.setAutoCommit(false);
@@ -82,7 +93,8 @@ public class UserModel extends BaseModel<UserBean>{
 			p.setLong(7, b.getRoleId());
 			p.setInt(8, b.getUnsuccessfulLogin());
 			p.setString(9, b.getGender());
-			p.setDate(10, new java.sql.Date(b.getLastLogin().getTime()));
+//			p.setDate(10, new java.sql.Date(b.getLastLogin().getTime()));
+			p.setTimestamp(10, b.getLastLogin());
 			p.setString(11, b.getUserLock());
 			p.setString(12, b.getRegisteredIp());
 			p.setString(13, b.getLastLoginIp());
@@ -120,7 +132,25 @@ public class UserModel extends BaseModel<UserBean>{
 		}
 		return s.toString();
 	}
+	
+	public UserBean findByLogin(String login) {
 
+		UserBean bean = findByUniqueColumn("login", login);
+
+		return bean;
+
+	}
+	
+	public UserBean authenticate(String login, String password) {
+
+		UserBean bean = findByLogin(login);
+
+		if (bean != null && bean.getPassword().equals(password)) {
+			return bean;
+		}
+		return null;
+
+	}
 	@Override
 	public String getTable() {
 		// TODO Auto-generated method stub
