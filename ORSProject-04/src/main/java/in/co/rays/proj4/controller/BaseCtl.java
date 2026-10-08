@@ -76,13 +76,9 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 		return dto;
 	}
 	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	
+	
 
-		ServletUtility.forward(getView(), request, response);
-
-	}
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -96,6 +92,23 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 		}
 
 		super.service(request, response);
+	}
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		ServletUtility.forward(getView(), request, response);
+
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		B bean = populateBean(req);
+		M model = getModel();
+		model.add(bean);
+		ServletUtility.setSuccessMessage("record is successfully saved", req);
+		ServletUtility.forward(getView(), req, resp);
+		
+		super.doPost(req, resp);
 	}
 	public abstract M getModel();
 	public abstract String getView();

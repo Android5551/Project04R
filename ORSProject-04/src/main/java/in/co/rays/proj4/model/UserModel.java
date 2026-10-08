@@ -143,7 +143,7 @@ public class UserModel extends BaseModel<UserBean>{
 	
 	public UserBean authenticate(String login, String password) {
 
-		UserBean bean = findByLogin(login);
+		UserBean bean = findByLogin(login); //select * from st_user where login = "ram@gmail.com"
 
 		if (bean != null && bean.getPassword().equals(password)) {
 			return bean;
