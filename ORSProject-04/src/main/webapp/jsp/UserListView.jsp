@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.controller.UserListCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
@@ -49,6 +50,9 @@
 				}
 				%>
 
+			</table>
+			<table>
+			<input type="submit" name="operation" value="<%=UserListCtl.OP_NEXT%>">
 			</table>
 		</form>
 	</div>
