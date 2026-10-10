@@ -10,8 +10,8 @@
 <body>
 
 	<%
-	UserBean user = (UserBean) session.getAttribute("user");
-	String role = (String) session.getAttribute("role");
+	UserBean user = (UserBean) session.getAttribute("user"); // bean
+	String role = (String) session.getAttribute("role"); // rb.getName()
 	boolean isLogin = user != null;
 	String welcomeMsg = "Hi, ";
 	%>

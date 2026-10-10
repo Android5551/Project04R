@@ -77,13 +77,14 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 
 			b = m.authenticate(b.getLogin(), b.getPassword());
 			if (b != null) {
-				s.setAttribute("user", b); // user and user bean
-				RoleBean rb = rm.findByPk(b.getRoleId());
+				s.setAttribute("user", b); // user key and user bean value
+				RoleBean rb = rm.findByPk(b.getRoleId()); // select * from st_role where id=role_id. name desc id
 				s.setAttribute("role", rb.getName()); // role admin
 				ServletUtility.redirect(ORSView.WELCOME_CTL, r, response);
-				return;
+				return; // return so that next request won't run otherwise error 500: conflict of requests.
 			} else {
 				ServletUtility.setErrorMessage("Invalid login or password", r);
+//				request.setAttribute("errMsg", msg);
 			}
 
 		}
