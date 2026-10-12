@@ -68,7 +68,7 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 	@Override
 	protected void doPost(HttpServletRequest r, HttpServletResponse response) throws ServletException, IOException {
 		String op = DataUtility.getString(r.getParameter("operation"));
-
+		// op signin
 		UserBean b = populateBean(r);
 		UserModel m = getModel();
 		RoleModel rm = new RoleModel();
