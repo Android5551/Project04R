@@ -10,9 +10,47 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * provide reliable connection with database
  * provide maximum connection  limitation with database
  * 
+ * ---------------------------------------------
+ * 	private static final JDBCDataSource jdbc = null;
+ * 	private static JDBCDataSource getInstance() {
+		if (jdbc == null) {
+			return new JDBCDataSource();
+		}
+		return jdbc;
+	}
+
+	public static Connection getConnection() { // factory design pattern
+		try {
+			return getInstance().c.getConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ * JDBC Connection Failure
+
+Problem: jdbc was initialized to null and declared final, 
+so its value could not be reassigned.
+
+Reason: jdbc == null was always true, causing getInstance() 
+to create a new JDBCDataSource and connection pool on every 
+call instead of reusing one shared instance.
+
+Error: Connections could not be acquired from the 
+underlying database!
+
+Effect: Database queries failed, causing the
+ User List to appear empty. Records were not 
+ necessarily deleted.
+
+Solution: Create one shared JDBCDataSource
+ and reuse it for all database operations.
+
+Prevention: Close Connection,
+ PreparedStatement, and ResultSet after use
+  to return resources to the pool.
  * */
 public final class JDBCDataSource {
-	private static final JDBCDataSource jdbc = null;
+	private static JDBCDataSource jdbc = null;
 	private static ComboPooledDataSource c = null;
 	ResourceBundle r = ResourceBundle.getBundle("in.co.rays.proj4.bundle.system");
 
@@ -37,7 +75,8 @@ public final class JDBCDataSource {
 
 	private static JDBCDataSource getInstance() {
 		if (jdbc == null) {
-			return new JDBCDataSource();
+			jdbc = new JDBCDataSource();
+			return jdbc;
 		}
 		return jdbc;
 	}

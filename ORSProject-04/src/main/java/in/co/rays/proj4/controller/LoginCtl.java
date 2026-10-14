@@ -27,6 +27,8 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 		System.out.println("In login's validate");
 		if (DataValidator.isNull(request.getParameter("login"))) {
 			request.setAttribute("login", "login is required");
+			// can't use following because key is errMsg not login and has different field names.
+//			ServletUtility.setErrorMessage("login is required", request);
 			System.out.println("in login's login");
 			pass = false;
 		}

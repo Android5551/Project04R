@@ -68,7 +68,8 @@ public class UserModel extends BaseModel<UserBean>{
 	public void update(UserBean b) throws ApplicationException, DuplicateRecordException {
 		Connection c = null;
 		UserBean existBean = findByLogin(b.getLogin());
-
+		// it means record exists and record's id is not same as id given by user.
+		// if user wants to update his own changes he can do
 		if (existBean != null && existBean.getId() != b.getId()) {
 			throw new DuplicateRecordException("login already exist");
 		}
@@ -82,7 +83,7 @@ public class UserModel extends BaseModel<UserBean>{
 					+ "last_login=?, user_lock=?, registered_ip=?,"
 					+ "last_login_ip=?, created_by=?,"
 					+ "modified_by=?, created_datetime=?,"
-					+ "modified_datetime=? where id=?)");
+					+ "modified_datetime=? where id=?");
 			
 			p.setString(1, b.getFirstName());
 			p.setString(2, b.getLastName());

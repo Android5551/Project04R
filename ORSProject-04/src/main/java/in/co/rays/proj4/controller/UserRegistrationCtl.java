@@ -59,7 +59,7 @@ public class UserRegistrationCtl extends BaseCtl<UserBean, UserModel> {
 		}
 		if (!request.getParameter("password").equals(request.getParameter("confirmPassword"))
 				&& !"".equals(request.getParameter("confirmPassword"))) {
-			request.setAttribute("confirmPassword", "Confirm  Password  should not be matched.");
+			request.setAttribute("confirmPassword", "Confirm  Password  should be matched.");
 			pass = false;
 		}
 
@@ -79,22 +79,22 @@ public class UserRegistrationCtl extends BaseCtl<UserBean, UserModel> {
 		populateDTO(b,r);
 		return b;
 	}
-	@Override
-	protected void doPost(HttpServletRequest r, HttpServletResponse response)
-			throws ServletException, IOException {
-		String op = DataUtility.getString(r.getParameter("operation"));
-		UserBean b = populateBean(r);
-		UserModel m = getModel();
-		if(OP_SIGN_UP.equalsIgnoreCase(op)) {
-			try {
-				m.add(b);
-				ServletUtility.setSuccessMessage("User is registered, login now", r);
-			} catch (Exception e) {
-				ServletUtility.setErrorMessage("Login id already exist", r);
-			}
-		}
-		ServletUtility.forward(getView(), r, response);
-	}
+//	@Override
+//	protected void doPost(HttpServletRequest r, HttpServletResponse response)
+//			throws ServletException, IOException {
+//		String op = DataUtility.getString(r.getParameter("operation"));
+//		UserBean b = populateBean(r);
+//		UserModel m = getModel();
+//		if(OP_SIGN_UP.equalsIgnoreCase(op)) {
+//			try {
+//				m.add(b);
+//				ServletUtility.setSuccessMessage("User is registered, login now", r);
+//			} catch (Exception e) {
+//				ServletUtility.setErrorMessage("Login id already exist", r);
+//			}
+//		}
+//		ServletUtility.forward(getView(), r, response);
+//	}
 
 	@Override
 	public UserModel getModel() {

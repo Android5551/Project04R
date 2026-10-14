@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.UserBean;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.BaseModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
@@ -75,9 +76,6 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 		dto.setModifiedDatetime(DataUtility.getCurrentTimestamp());
 		return dto;
 	}
-	
-	
-	
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -93,24 +91,48 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 
 		super.service(request, response);
 	}
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// getting id from user list ctl query string. in edit.
+		long id = DataUtility.getLong(request.getParameter("id"));
+		M model = getModel();
+		if (id > 0) {
+			// select * from st_user where id=?
+			BaseBean bean = model.findByPk(id); //findByPk is in BaseModel.
+			ServletUtility.setBean(bean, request);
+		}
 		ServletUtility.forward(getView(), request, response);
 
 	}
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		String op = DataUtility.getString(req.getParameter("operation"));
 		B bean = populateBean(req);
+		// gets bean from view which we updated or added on user view.
 		M model = getModel();
-		model.add(bean);
-		ServletUtility.setSuccessMessage("record is successfully saved", req);
-		ServletUtility.forward(getView(), req, resp);
 		
+		try {
+			if (bean.getId() > 0) {
+				model.update(bean);
+				ServletUtility.setSuccessMessage("record is successfully updated", req);
+			} else {
+				model.add(bean);
+				ServletUtility.setSuccessMessage("record is successfully added", req);
+			}
+		} catch (DuplicateRecordException e) {
+			ServletUtility.setErrorMessage("record already exist", req);
+		}
+		ServletUtility.setBean(bean, req);
+		ServletUtility.forward(getView(), req, resp);
+
 		super.doPost(req, resp);
 	}
+
 	public abstract M getModel();
+
 	public abstract String getView();
 
 }

@@ -16,11 +16,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/UserCtl")
+@WebServlet("/ctl/UserCtl")
 public class UserCtl extends BaseCtl<UserBean, UserModel> {
 
 //	public static final String OP_SIGN_UP = "SignUp";
-
+	
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
@@ -63,7 +63,7 @@ public class UserCtl extends BaseCtl<UserBean, UserModel> {
 		}
 		if (!request.getParameter("password").equals(request.getParameter("confirmPassword"))
 				&& !"".equals(request.getParameter("confirmPassword"))) {
-			request.setAttribute("confirmPassword", "Confirm  Password  should not be matched.");
+			request.setAttribute("confirmPassword", "Confirm  Password  should be matched.");
 			pass = false;
 		}
 
@@ -72,7 +72,7 @@ public class UserCtl extends BaseCtl<UserBean, UserModel> {
 	@Override
 	protected UserBean populateBean(HttpServletRequest r) {
 		UserBean b = new UserBean();
-//		b.setRoleId(DataUtility.getInt(r.getParameter("roleId")));
+//		this id we will take from view's datautility.getStringData
 		b.setId(DataUtility.getLong(r.getParameter("id")));
 		b.setFirstName(DataUtility.getString(r.getParameter("firstName")));
 		b.setLastName(DataUtility.getString(r.getParameter("lastName")));
@@ -85,22 +85,7 @@ public class UserCtl extends BaseCtl<UserBean, UserModel> {
 		populateDTO(b,r);
 		return b;
 	}
-//	@Override
-//	protected void doPost(HttpServletRequest r, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		String op = DataUtility.getString(r.getParameter("operation"));
-//		UserBean b = populateBean(r);
-//		UserModel m = getModel();
-//		if(OP_SIGN_UP.equalsIgnoreCase(op)) {
-//			try {
-//				m.add(b);
-//				ServletUtility.setSuccessMessage("User is registered, login now", r);
-//			} catch (Exception e) {
-//				ServletUtility.setErrorMessage("Login id already exist", r);
-//			}
-//		}
-//		ServletUtility.forward(getView(), r, response);
-//	}
+
 
 	@Override
 	public UserModel getModel() {

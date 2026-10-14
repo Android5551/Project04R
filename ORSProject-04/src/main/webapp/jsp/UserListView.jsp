@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.controller.UserCtl"%>
 <%@page import="in.co.rays.proj4.controller.UserListCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -13,46 +14,65 @@
 <body>
 	<%@include file="Header.jsp"%>
 	<%
-	List<UserBean> l = ServletUtility.getList(request);
+	List<UserBean> l = (List<UserBean>) ServletUtility.getList(request);
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
-
-	int index = (pageNo - 1) * pageSize + 1;
+	int index = (pageNo - 1) * pageSize +  1;
 	Iterator<UserBean> it = l.iterator();
 	%>
 	<div align="center">
 		<h1>User List</h1>
 		<form action="<%=ORSView.USER_LIST_CTL%>" method="post">
+			<input type="text" name=pageNo
+				value="<%="Page " + pageNo + " Listsiz " + l.size() + " pageSiz " + pageSize%>">
 			<table border="1px" width="100%">
-				<tr style="background-color:skyblue">
+				<tr style="background-color: skyblue">
+					<th><input type="checkbox">Select All</th>
 					<th>S.No.</th>
+					<th>Id</th>
 					<th>FirstName</th>
 					<th>LastName</th>
 					<th>Login</th>
 					<th>DOB</th>
 					<th>RoleId</th>
 					<th>Gender</th>
+					<th>Edit</th>
 				</tr>
 				<%
 				while (it.hasNext()) {
 					UserBean b = it.next();
 				%>
-				<tr align="center" style="background-color:lightgrey">
+				<tr align="center" style="background-color: lightgrey">
+					<td><input type="checkbox" name="ids" value="<%=b.getId()%>"></td>
 					<td><%=index++%></td>
+					<td><%=b.getId()%></td>
+
 					<td><%=b.getFirstName()%>
 					<td><%=b.getLastName()%>
 					<td><%=b.getLogin()%>
 					<td><%=b.getDob()%>
 					<td><%=b.getRoleId()%>
 					<td><%=b.getGender()%>
+					<td><a href="<%=ORSView.USER_CTL + "?id=" + b.getId()%>">Edit</a>
 				</tr>
 				<%
 				}
 				%>
 
 			</table>
-			<table>
-			<input type="submit" name="operation" value="<%=UserListCtl.OP_NEXT%>">
+			<table width="100%">
+				<tr>
+
+					<td align="left"><input type="submit" align="right"
+						name="operation" value="<%=UserListCtl.OP_PREVIOUS%>"
+						<%=pageNo == 1 ? "disabled" : ""%>></td>
+					<td align="center"><input align="center" type="submit"
+						name="operation" value="<%=UserListCtl.OP_DELETE%>"></td>
+					<td align="right"><input align="right" type="submit"
+						name="operation" value="<%=UserListCtl.OP_NEXT%>"
+						<%=l.size() < pageSize ? "disabled" : ""%>></td>
+				</tr>
+
 			</table>
 		</form>
 	</div>
