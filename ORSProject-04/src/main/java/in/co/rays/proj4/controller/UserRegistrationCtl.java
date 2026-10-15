@@ -79,22 +79,23 @@ public class UserRegistrationCtl extends BaseCtl<UserBean, UserModel> {
 		populateDTO(b,r);
 		return b;
 	}
-//	@Override
-//	protected void doPost(HttpServletRequest r, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		String op = DataUtility.getString(r.getParameter("operation"));
-//		UserBean b = populateBean(r);
-//		UserModel m = getModel();
-//		if(OP_SIGN_UP.equalsIgnoreCase(op)) {
-//			try {
+	@Override
+	protected void doPost(HttpServletRequest r, HttpServletResponse response)
+			throws ServletException, IOException {
+		String op = DataUtility.getString(r.getParameter("operation"));
+		UserBean b = populateBean(r);
+		UserModel m = getModel();
+		if(OP_SIGN_UP.equalsIgnoreCase(op)) {
+			try {
 //				m.add(b);
-//				ServletUtility.setSuccessMessage("User is registered, login now", r);
-//			} catch (Exception e) {
-//				ServletUtility.setErrorMessage("Login id already exist", r);
-//			}
-//		}
-//		ServletUtility.forward(getView(), r, response);
-//	}
+				m.register(b);
+				ServletUtility.setSuccessMessage("User is registered, login now", r);
+			} catch (Exception e) {
+				ServletUtility.setErrorMessage("Login id already exist", r);
+			}
+		}
+		ServletUtility.forward(getView(), r, response);
+	}
 
 	@Override
 	public UserModel getModel() {

@@ -13,7 +13,7 @@ import jakarta.mail.internet.MimeMessage;
 
 public class EmailUtility {
 
-	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.System");
+	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.system");
 	private static final String SMTP_HOST_NAME = rb.getString("smtp.server");
 	private static final String SMTP_PORT = rb.getString("smtp.port");
 	private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";

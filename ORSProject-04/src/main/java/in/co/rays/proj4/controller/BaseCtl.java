@@ -124,6 +124,7 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 			}
 		} catch (DuplicateRecordException e) {
 			ServletUtility.setErrorMessage("record already exist", req);
+			System.out.println("in baseCtl catch");
 		}
 		ServletUtility.setBean(bean, req);
 		ServletUtility.forward(getView(), req, resp);

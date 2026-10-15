@@ -39,7 +39,7 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 		int pageSize = 5;
 		B bean = populateBean(req);
 		M model = getModel();
-		if("delete".equalsIgnoreCase(op)) {
+		if(OP_DELETE.equalsIgnoreCase(op)) {
 			String [] ids = req.getParameterValues("ids");
 			if(ids != null && ids.length>0) {
 				for(String id : ids) {
@@ -51,16 +51,19 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 				ServletUtility.setErrorMessage("Select at least one record to delete", req);
 			}
 		}
-		if("next".equalsIgnoreCase(op)) {
+		if(OP_NEXT.equalsIgnoreCase(op)) {
 			System.out.println("in next");
 			pageNo = DataUtility.getInt(req.getParameter("pageNo"));
 			System.out.println(pageNo);
 			pageNo++;
 			System.out.println(pageNo);
 		}
-		if("previous".equalsIgnoreCase(op)) {
+		if(OP_PREVIOUS.equalsIgnoreCase(op)) {
 			pageNo = DataUtility.getInt(req.getParameter("pageNo"));
 			pageNo--;
+		}
+		if(OP_SEARCH.equalsIgnoreCase(op)) {
+			pageNo = 1; 
 		}
 		
 		

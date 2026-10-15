@@ -23,7 +23,7 @@ public class EmailBuilder {
 		msg.append("<p>You may also write to us at hrd@sunrays.co.in.</p>");
 		msg.append(
 				"<p>We assure you the best service at all times and look forward to a warm and long-standing association with you.</p>");
-		msg.append("<P><a href='http://www.sunrays.co.in' >-SUNRAYS Technolgies</a></P>");
+		msg.append("<P><a href='http://www.sunrays.co.in' > -SUNRAYS Technolgies</a></P>");
 		msg.append("</BODY></HTML>");
 
 		return msg.toString();

@@ -1,3 +1,5 @@
+<%@page import="in.co.rays.proj4.controller.RoleCtl"%>
+<%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="in.co.rays.proj4.controller.UserCtl"%>
 <%@page import="in.co.rays.proj4.controller.UserListCtl"%>
 <%@page import="java.util.Iterator"%>
@@ -28,6 +30,14 @@
 		<form action="<%=ORSView.USER_LIST_CTL%>" method="post">
 			<h3 style="color:red"><%=err%></h3>
 			<h3 style="color:green"><%=succ%></h3>
+			<table>
+			<tr>
+			<th>First Name</th>
+			<td><input type="text" name="firstName" value="" placeholder="Search by first name" >
+			<input type="submit" name="operation" value="<%=UserListCtl.OP_SEARCH%>">
+			</td>
+			</tr>
+			</table>
 			<input type="text" name=pageNo value="<%=pageNo%>">
 			<table border="1px" width="100%">
 				<tr style="background-color: skyblue">
@@ -75,6 +85,7 @@
 					<td align="right"><input type="submit"
 						name="operation" value="<%=UserListCtl.OP_NEXT%>"
 						<%=l.size() < pageSize ? "disabled" : ""%>></td>
+				
 				</tr>
 
 			</table>
