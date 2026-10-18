@@ -43,7 +43,11 @@
 						value="<%=LoginCtl.OP_SIGNIN%>"></td>
 				</tr>
 				
-
+				<tr>
+					<th></th>
+					<td><a href="<%=ORSView.FORGET_PASSWORD_CTL%>">forgot your
+							password ?</a></td>
+				</tr>
 			</table>
 
 		</form>

@@ -16,32 +16,37 @@
 <body>
 	<%@include file="Header.jsp"%>
 	<%
-	List<UserBean> l = (List<UserBean>) ServletUtility.getList(request);
+	List<UserBean> l = ServletUtility.getList(request);
+	List<UserBean> nl = (List<UserBean>) request.getAttribute("nl");
+
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
-	int index = (pageNo - 1) * pageSize +  1;
+	int index = (pageNo - 1) * pageSize + 1;
 	Iterator<UserBean> it = l.iterator();
+	
+	
 	String err = ServletUtility.getErrorMessage(request);
 	String succ = ServletUtility.getSuccessMessage(request);
-	
 	%>
 	<div align="center">
 		<h1>User List</h1>
 		<form action="<%=ORSView.USER_LIST_CTL%>" method="post">
-			<h3 style="color:red"><%=err%></h3>
-			<h3 style="color:green"><%=succ%></h3>
+			<h3 style="color: red"><%=err%></h3>
+			<h3 style="color: green"><%=succ%></h3>
 			<table>
-			<tr>
-			<th>First Name</th>
-			<td><input type="text" name="firstName" value="" placeholder="Search by first name" >
-			<input type="submit" name="operation" value="<%=UserListCtl.OP_SEARCH%>">
-			</td>
-			</tr>
+				<tr>
+					<th>First Name</th>
+					<td><input type="text" name="firstName" value=""
+						placeholder="Search by first name"> <input type="submit"
+						name="operation" value="<%=UserListCtl.OP_SEARCH%>"></td>
+				</tr>
 			</table>
 			<input type="text" name=pageNo value="<%=pageNo%>">
 			<table border="1px" width="100%">
 				<tr style="background-color: skyblue">
-					<th><input type="checkbox" onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)">Select All</th>
+					<th><input type="checkbox"
+						onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)">Select
+						All</th>
 					<th>S.No.</th>
 					<th>Id</th>
 					<th>FirstName</th>
@@ -76,16 +81,16 @@
 			</table>
 			<table width="100%">
 				<tr>
-
-					<td align="left"><input type="submit" 
-						name="operation" value="<%=UserListCtl.OP_PREVIOUS%>"
+				<% %>
+					<td align="left"><input type="submit" name="operation"
+						value="<%=UserListCtl.OP_PREVIOUS%>"
 						<%=pageNo == 1 ? "disabled" : ""%>></td>
-					<td align="center"><input type="submit"
-						name="operation" value="<%=UserListCtl.OP_DELETE%>"></td>
-					<td align="right"><input type="submit"
-						name="operation" value="<%=UserListCtl.OP_NEXT%>"
-						<%=l.size() < pageSize ? "disabled" : ""%>></td>
-				
+					<td align="center"><input type="submit" name="operation"
+						value="<%=UserListCtl.OP_DELETE%>"></td>
+					<td align="right"><input type="submit" name="operation"
+						value="<%=UserListCtl.OP_NEXT%>"
+						<%=nl.size() == 0 ? "disabled" : "" %>></td>
+<%--  <%=l.size() < pageSize ? "disabled" : ""%>  --%>
 				</tr>
 
 			</table>

@@ -184,12 +184,13 @@ public class UserModel extends BaseModel<UserBean>{
 		if (bean != null) {
 
 			HashMap<String, String> map = new HashMap<String, String>();
-			EmailMessage msg = new EmailMessage();
-
+			
 			map.put("login", bean.getLogin());
 			map.put("password", bean.getPassword());
 			map.put("firstName", bean.getFirstName());
 			map.put("lastName", bean.getLastName());
+		
+			EmailMessage msg = new EmailMessage();
 
 			msg.setTo(map.get("login"));
 			msg.setSubject("Password Changed");

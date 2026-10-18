@@ -1,6 +1,7 @@
 package in.co.rays.proj4.controller;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import in.co.rays.proj4.bean.BaseBean;
@@ -23,7 +24,8 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 		int pageSize = 5;
 		
 		List<B> list = model.search(bean, 1, 5);
-		
+		List<B> nl = model.search(bean, pageNo+1, pageSize);
+		request.setAttribute("nl",nl);
 		ServletUtility.setList(list, request);
 		ServletUtility.setPageNo(pageNo, request);
 		ServletUtility.setPageSize(pageSize, request);
@@ -40,6 +42,7 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 		B bean = populateBean(req);
 		M model = getModel();
 		if(OP_DELETE.equalsIgnoreCase(op)) {
+			pageNo = DataUtility.getInt(req.getParameter("pageNo"));
 			String [] ids = req.getParameterValues("ids");
 			if(ids != null && ids.length>0) {
 				for(String id : ids) {
@@ -69,6 +72,8 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 		
 		List<B> l = model.search(bean, pageNo, pageSize);
 		
+		List<B> nl	= model.search(bean, pageNo+1, pageSize);
+		req.setAttribute("nl", nl);
 		ServletUtility.setList(l, req);
 		ServletUtility.setPageNo(pageNo, req);
 		ServletUtility.setPageSize(pageSize, req);
