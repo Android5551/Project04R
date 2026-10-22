@@ -12,7 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> extends BaseCtl<B,M>{
+public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> extends BaseCtl<B, M>{
 	// it will override baseCtl's do get
 	
 	@Override
@@ -22,8 +22,10 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 		M model = getModel();
 		int pageNo = 1;
 		int pageSize = 5;
-		
+		System.out.println("do Get of BaseListCtl");
+		System.out.println("list");
 		List<B> list = model.search(bean, 1, 5);
+		System.out.println("Nextlist");
 		List<B> nl = model.search(bean, pageNo+1, pageSize);
 		request.setAttribute("nl",nl);
 		ServletUtility.setList(list, request);
@@ -36,14 +38,18 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("In doPost of BaseListCtl");
 		String op = req.getParameter("operation");
+		System.out.println(op);
 		int pageNo = 1;
 		int pageSize = 5;
 		B bean = populateBean(req);
 		M model = getModel();
+		
 		if(OP_DELETE.equalsIgnoreCase(op)) {
 			pageNo = DataUtility.getInt(req.getParameter("pageNo"));
 			String [] ids = req.getParameterValues("ids");
+			System.out.println("-----------I D S "+ids);
 			if(ids != null && ids.length>0) {
 				for(String id : ids) {
 					model.delete(DataUtility.getInt(id));
@@ -69,9 +75,9 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 			pageNo = 1; 
 		}
 		
-		
+		System.out.println("list");
 		List<B> l = model.search(bean, pageNo, pageSize);
-		
+		System.out.println("Nextlist");
 		List<B> nl	= model.search(bean, pageNo+1, pageSize);
 		req.setAttribute("nl", nl);
 		ServletUtility.setList(l, req);

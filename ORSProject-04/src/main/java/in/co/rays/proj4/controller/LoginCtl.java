@@ -42,7 +42,7 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 		return pass;
 
 	}
-
+	// logout
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -78,6 +78,11 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 		if (OP_SIGNIN.equalsIgnoreCase(op)) {
 
 			b = m.authenticate(b.getLogin(), b.getPassword());
+			/* Usermodel's findbylogin(login) -> findbyuniquecolumn("login" , login) 
+			 * in basemodel we have findbyuniquecolumn query select * from st_user where login=b.getlogin()
+			 * fname lname roleid..
+			 * in findbylogin check if(b!=null && b.getPassword.equals(password)) return bean else null
+			 * */
 			if (b != null) {
 				s.setAttribute("user", b); // user key and user bean value
 				RoleBean rb = rm.findByPk(b.getRoleId()); // select * from st_role where id=role_id. name desc id

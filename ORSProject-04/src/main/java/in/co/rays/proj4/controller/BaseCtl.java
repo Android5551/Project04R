@@ -82,6 +82,7 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("service method");
+		System.out.println(request.getMethod()+" "+request.getParameter("operation"));
 		getMessageSource(request);
 
 		if (request.getMethod() == "POST" && validate(request) == false) {

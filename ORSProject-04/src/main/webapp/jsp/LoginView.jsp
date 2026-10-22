@@ -9,6 +9,7 @@
 <body>
 	<%@ include file="Header.jsp"%>
 	<%
+	
 	String succ = ServletUtility.getSuccessMessage(request);
 	String err = ServletUtility.getErrorMessage(request);
 	%>

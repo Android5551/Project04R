@@ -8,7 +8,7 @@ import in.co.rays.proj4.util.ServletUtility;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
-@WebServlet("/RoleCtl")
+@WebServlet("/ctl/RoleCtl")
 public class RoleCtl extends BaseCtl<RoleBean, RoleModel>{
 
 	@Override
@@ -28,6 +28,7 @@ public class RoleCtl extends BaseCtl<RoleBean, RoleModel>{
 	@Override
 	protected RoleBean populateBean(HttpServletRequest req) {
 		RoleBean b = new RoleBean();
+		b.setId(DataUtility.getLong(req.getParameter("id")));
 		b.setName(DataUtility.getString(req.getParameter("name")));
 		b.setDescription(DataUtility.getString(req.getParameter("description")));
 		populateDTO(b, req);
