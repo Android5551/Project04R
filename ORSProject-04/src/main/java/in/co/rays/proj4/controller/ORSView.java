@@ -3,15 +3,11 @@ package in.co.rays.proj4.controller;
 public interface ORSView {
 
 	public String APP_CONTEXT = "/ORSProject-04";
-
 	public String PAGE_FOLDER = "/jsp";
-
+	
 	public String JAVA_DOC_VIEW = APP_CONTEXT + "/doc/index.html";
-
 	public String ERROR_VIEW = PAGE_FOLDER + "/MarksheetListView.jsp";
-
 	public String MARKSHEET_VIEW = PAGE_FOLDER + "/MarksheetView.jsp";
-
 	public String MARKSHEET_LIST_VIEW = PAGE_FOLDER + "/MarksheetListView.jsp";
 	public String GET_MARKSHEET_VIEW = PAGE_FOLDER + "/GetMarksheetView.jsp";
 	public String USER_VIEW = PAGE_FOLDER + "/UserView.jsp";
@@ -61,7 +57,7 @@ public interface ORSView {
 	public String MY_PROFILE_CTL = APP_CONTEXT + "/ctl/MyProfileCtl";
 	public String FORGET_PASSWORD_CTL = APP_CONTEXT + "/ForgetPasswordCtl";
 	public String MARKSHEET_MERIT_LIST_CTL = APP_CONTEXT + "/ctl/MarksheetMeritListCtl";
-	public String UPLOAD_PHOTO_CTL = APP_CONTEXT + "/ctl/uploadphoto";
+	public String UPLOAD_PHOTO_CTL = APP_CONTEXT + "/ctl/UploadPhotoCtl";
 
 	public String FACULTY_VIEW = PAGE_FOLDER + "/FacultyView.jsp";
 	public String FACULTY_LIST_VIEW = PAGE_FOLDER + "/FacultyListView.jsp";

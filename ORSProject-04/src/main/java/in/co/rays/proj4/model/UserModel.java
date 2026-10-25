@@ -33,7 +33,7 @@ public class UserModel extends BaseModel<UserBean>{
 			c = JDBCDataSource.getConnection();
 			c.setAutoCommit(false);
 			PreparedStatement p = c.prepareStatement("insert into "+getTable()+
-					" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			p.setLong(1, pk);
 			p.setString(2, b.getFirstName());
 			p.setString(3, b.getLastName());
@@ -53,7 +53,7 @@ public class UserModel extends BaseModel<UserBean>{
 			p.setString(16, b.getModifiedBy());
 			p.setTimestamp(17, b.getCreatedDatetime());
 			p.setTimestamp(18, b.getModifiedDatetime());
-			
+			p.setString(19, b.getPhoto());
 			int i = p.executeUpdate();
 			System.out.println(i+" row inserted");
 			JDBCDataSource.trnCommit(c);
@@ -176,7 +176,27 @@ public class UserModel extends BaseModel<UserBean>{
 
 		return pk;
 	}
-
+	public void updatephoto(long id, String photo) throws ApplicationException {
+		
+		Connection c = null;
+		try {
+			c = JDBCDataSource.getConnection();
+			c.setAutoCommit(false);
+			PreparedStatement p = c.prepareStatement("update "+getTable()+" set photo=? where id=?");
+			p.setString(1, photo);
+			p.setLong(2, id);
+			
+			int i = p.executeUpdate();
+			System.out.println(i+" row updated!");
+			JDBCDataSource.trnCommit(c);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JDBCDataSource.trnRollBack(c);
+		}finally {
+			JDBCDataSource.closeConnection(c);
+		}
+	}
+	
 	public UserBean forgotPassword(String login) {
 
 		UserBean bean = findByLogin(login);

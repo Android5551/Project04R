@@ -21,8 +21,16 @@ public class UserBean extends BaseBean{
     
     private String registeredIp;
     private String lastLoginIp;
+    private String photo;
+    public String getPhoto() {
+		return photo;
+	}
 
-    public String getConfirmPassword() {
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public String getConfirmPassword() {
     	return confirmPassword;
     }
     
@@ -171,6 +179,7 @@ public class UserBean extends BaseBean{
 			setUserLock(rs.getString("user_lock"));
 			setRegisteredIp(rs.getString("registered_ip"));
 			setLastLoginIp(rs.getString("last_login_ip"));
+			setPhoto(rs.getString("photo"));
 			
 		} catch (SQLException e) {
 			
