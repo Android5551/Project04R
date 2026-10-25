@@ -27,7 +27,7 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 		List<B> list = model.search(bean, 1, 5);
 		System.out.println("Nextlist");
 		List<B> nl = model.search(bean, pageNo+1, pageSize);
-		request.setAttribute("nl",nl);
+		request.setAttribute("nl",nl.size());
 		ServletUtility.setList(list, request);
 		ServletUtility.setPageNo(pageNo, request);
 		ServletUtility.setPageSize(pageSize, request);
