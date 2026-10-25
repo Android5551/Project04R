@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends HttpServlet {
+	
+	public static final String OP_UPDATE = "Update";
 	public static final String OP_SAVE = "Save";
 	public static final String OP_CANCEL = "Cancel";
 	public static final String OP_DELETE = "Delete";

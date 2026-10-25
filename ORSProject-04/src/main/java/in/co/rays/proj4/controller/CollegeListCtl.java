@@ -3,8 +3,9 @@ package in.co.rays.proj4.controller;
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.model.CollegeModel;
 import in.co.rays.proj4.util.DataUtility;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
-
+@WebServlet("/ctl/CollegeListCtl")
 public class CollegeListCtl extends BaseListCtl<CollegeBean,CollegeModel> {
 	@Override
 	protected CollegeBean populateBean(HttpServletRequest request) {

@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> extends BaseCtl<B, M>{
 	// it will override baseCtl's do get
-	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

@@ -98,10 +98,10 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 		
 		if(bean != null) {
 			if(bean.getName() != null && bean.getName().length()>0) {
-				s.append(" and name like '"+bean.getName()+"'%");
+				s.append(" and name like '"+bean.getName()+"%'");
 			}
 			if(bean.getPhoneNo()!= null && bean.getPhoneNo().length()>0) {
-				s.append(" and phoneNo like '"+bean.getPhoneNo()+"'%");
+				s.append(" and phoneNo like '"+bean.getPhoneNo()+"%'");
 			}
 		}
 		return s.toString();

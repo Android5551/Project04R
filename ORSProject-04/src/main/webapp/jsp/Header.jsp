@@ -30,29 +30,28 @@
 				href="<%=ORSView.ROLE_LIST_CTL%>">Role List</a> | <a
 				href="<%=ORSView.USER_CTL%>">Add User</a> | <a
 				href="<%=ORSView.USER_LIST_CTL%>">User List</a> | <a
+				href="<%=ORSView.COLLEGE_LIST_CTL%>">College List</a> | <a
 				href="<%=ORSView.CHANGE_PASSWORD_CTL%>">Change Password</a> | <a
 				href="<%=ORSView.LOGIN_CTL + "?operation=logout"%>">Logout</a> | <%
  } else {
  %>
-				<h2>Hii, Guest</h2> <a href="<%=ORSView.LOGIN_CTL%>">Login</a> | <a
+				<h2>Hi, Guest</h2> <a href="<%=ORSView.LOGIN_CTL%>">Login</a> | <a
 				href="<%=ORSView.USER_REGISTRATION_CTL%>">SignUp</a> | <%
  }
- %>
-			
-			<a href="<%=ORSView.WELCOME_CTL%>">Welcome</a>
-</td>
+ %> <a href="<%=ORSView.WELCOME_CTL%>">Welcome</a>
+			</td>
 
-	<td width="100%">
-			<form>
-				<select name="lang" onchange="this.form.submit()">
-					<option value="en" <%=("en".equals(locale)) ? "selected" :""%>>en</option>
-					<option value="hi" <%=("hi".equals(locale)) ? "selected" : ""%>>hi</option>
-				</select>
-			</form>
+			<td width="100%">
+				<form>
+					<select name="lang" onchange="this.form.submit()">
+						<option value="en" <%=("en".equals(locale)) ? "selected" : ""%>>en</option>
+						<option value="hi" <%=("hi".equals(locale)) ? "selected" : ""%>>hi</option>
+					</select>
+				</form>
 			</td>
 		</tr>
 	</table>
 
 	<hr>
 </body>
-</html> 
+</html>
