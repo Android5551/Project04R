@@ -88,6 +88,8 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 		getMessageSource(request);
 
 		if (request.getMethod() == "POST" && validate(request) == false) {
+			BaseBean bean = populateBean(request);
+			ServletUtility.setBean(bean, request);
 			System.out.println("In service's if");
 			ServletUtility.forward(getView(), request, response);
 			System.out.println("in service");

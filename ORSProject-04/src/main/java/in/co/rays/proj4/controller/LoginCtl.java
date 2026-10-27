@@ -95,6 +95,7 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 			}
 
 		}
+		ServletUtility.setBean(b, r);
 		ServletUtility.forward(getView(), r, response);
 	}
 
