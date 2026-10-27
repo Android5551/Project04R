@@ -25,9 +25,13 @@ import jakarta.servlet.http.Part;
 public class UploadPhotoCtl extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		RoleModel model = new RoleModel();
+		long id = DataUtility.getLong(req.getParameter("id"));
+		UserModel model = new UserModel();
+		UserBean bean = model.findByPk(id);
+		ServletUtility.setBean(bean, req);
+		//		RoleModel model = new RoleModel();
 //		try {
-//			List l = model.list();
+//			List l = model.list(null,0,0);
 //			req.setAttribute("roleList", l);
 //		} catch (ApplicationException e) {
 //		}
@@ -49,15 +53,15 @@ public class UploadPhotoCtl extends HttpServlet {
 
 		String photoPath = PropertyReader.getValue("photoPath");
 
-		// User photo available
+		// User photo available? bean and photo is not null
 		if (bean != null && DataValidator.isNotNull(bean.getPhoto())) {
-
+			// folder's path + photo name
 			File file = new File(photoPath, bean.getPhoto());
-
+			// Check if file exists
 			if (file.exists()) {
-
+				// can take any type of image.
 				response.setContentType(getServletContext().getMimeType(file.getName()));
-
+				// reads input file and writes into output
 				InputStream in = new java.io.FileInputStream(file);
 				OutputStream out = response.getOutputStream();
 
@@ -76,7 +80,7 @@ public class UploadPhotoCtl extends HttpServlet {
 			}
 		}
 
-		// Get Default photo
+		// Get Default photo if no photo found.
 		InputStream in = getServletContext().getResourceAsStream("/img/logo.png");
 
 		response.setContentType("image/png");
@@ -100,9 +104,9 @@ public class UploadPhotoCtl extends HttpServlet {
 			throws ServletException, IOException {
 
 		long id = DataUtility.getLong(request.getParameter("id"));
-		UserModel model = new UserModel();
-		UserBean bean = model.findByPk(id);
-		ServletUtility.setBean(bean, request);
+//		UserModel model = new UserModel();
+//		UserBean bean = model.findByPk(id);
+//		ServletUtility.setBean(bean, request);
 
 		// Get uploaded photo
 		Part part = request.getPart("photo");
@@ -145,7 +149,7 @@ public class UploadPhotoCtl extends HttpServlet {
 		output.close();
 
 		try {
-
+			UserModel model = new UserModel();
 			model.updatephoto(id, fileName);
 			ServletUtility.setSuccessMessage("photo upload successfully", request);
 

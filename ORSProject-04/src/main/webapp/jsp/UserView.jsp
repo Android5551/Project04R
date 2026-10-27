@@ -1,4 +1,8 @@
 
+<%@page import="in.co.rays.proj4.util.HTMLUtility"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="in.co.rays.proj4.bean.RoleBean"%>
+<%@page import="java.util.List"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
 <%@page import="in.co.rays.proj4.controller.UserCtl"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
@@ -16,6 +20,10 @@
 	<%
 	String err = ServletUtility.getErrorMessage(request);
 	String succ = ServletUtility.getSuccessMessage(request);
+	List<RoleBean> roleList = (List<RoleBean>) request.getAttribute("roleList");
+	HashMap<String, String> map = new HashMap<String, String>();
+	map.put("male", "male");
+	map.put("female", "female");
 	/* UserBean bean = (UserBean) ServletUtility.getBean(request); */
 	
 	%>
@@ -28,7 +36,7 @@
 		<form action="<%=ORSView.UPLOAD_PHOTO_CTL%>" method="POST"
 			enctype="multipart/form-data">
 
-			<input type="text" name="id" value="<%=bean.getId()%>">
+			<input type="hidden" name="id" value="<%=bean.getId()%>">
 
 			<table>
 
@@ -36,10 +44,10 @@
 					<th>Photo</th>
 				</tr>
 
-				<tr>
+				<tr> <!-- here doGet will run as id is getting appended. -->
 					<td align="center"><img
 						src="<%=ORSView.UPLOAD_PHOTO_CTL%>?id=<%=bean.getId()%>"
-						onerror="this.style.display='none';" alt="User Photo" width="80"
+						width="80"
 						height="80"
 						style="object-fit: cover; border-radius: 50%; border: 1px solid #ccc;">
 					</td>
@@ -64,7 +72,7 @@
 		%>
 	</div>
 	<form action="<%=ORSView.USER_CTL%>" method="post">
-		<input type="text" name="id"
+		<input type="hidden" name="id"
 			value="<%=DataUtility.getStringData(bean.getId())%>">
 		<div align="center">
 
@@ -117,23 +125,27 @@
 
 				<tr>
 					<th>Gender<font color="red">*</font></th>
-					<td><select name='gender'>
+					<td><%=HTMLUtility.getList("gender", DataUtility.getStringData(bean.getGender()), map)%>
+					<!-- <select name='gender'>
 							<option selected value=''>------------Select-------------</option>
 							<option value="female">female</option>
 							<option value="male">male</option>
-					</select></td>
+					</select> -->
+					</td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("gender", request)%></td>
 				</tr>
 				<tr>
 					<th>Role<font color="red">*</font></th>
-					<td><select name='roleId'>
+					<td><%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getRoleId()), roleList)%>
+					<!-- <select name='roleId'>
 							<option selected value=''>------------Select-------------</option>
 							<option value='1'>admin</option>
 							<option value='2'>student</option>
 							<option value='3'>faculty</option>
 							<option value='4'>college</option>
 							<option value='5'>KIOSK</option>
-					</select></td>
+					</select> -->
+					</td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("role", request)%></td>
 				</tr>
 

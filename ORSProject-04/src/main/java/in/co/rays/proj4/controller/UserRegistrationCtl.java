@@ -53,6 +53,10 @@ public class UserRegistrationCtl extends BaseCtl<UserBean, UserModel> {
 			request.setAttribute("gender", "gender is required");
 			pass = false;
 		}
+		if (DataValidator.isNull(request.getParameter("roleId"))) {
+			request.setAttribute("roleId", "roleId is required");
+			pass = false;
+		}
 		if (DataValidator.isNull(request.getParameter("dob"))) {
 			request.setAttribute("dob", "dob is required");
 			pass = false;

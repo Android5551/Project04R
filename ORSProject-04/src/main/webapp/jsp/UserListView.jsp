@@ -41,7 +41,7 @@
 						name="operation" value="<%=UserListCtl.OP_SEARCH%>"></td>
 				</tr>
 			</table>
-			<input type="text" name=pageNo value="<%=pageNo%>">
+			<input type="hidden" name=pageNo value="<%=pageNo%>">
 			<table border="1px" width="100%">
 				<tr style="background-color: skyblue">
 					<th><input type="checkbox"

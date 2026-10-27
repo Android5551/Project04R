@@ -35,7 +35,7 @@
 		</table>
 		<h3 style="color: green" align="center"><%=succ%></h3>
 		<h3 style="color: red" align="center"><%=err%></h3>
-		<input type="text" name="pageNo" value="<%=pageNo%>">
+		<input type="hidden" name="pageNo" value="<%=pageNo%>">
 		<table border="1px" width="100%">
 			<tr style="background-color: skyblue">
 				<th><input type="checkbox"

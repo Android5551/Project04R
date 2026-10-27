@@ -1,26 +1,27 @@
 package in.co.rays.proj4.controller;
 
-import java.io.IOException;
+import java.util.List;
 
-import org.jfree.chart.servlet.ServletUtilities;
-
-import com.ctc.wstx.util.DataUtil;
-
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.UserBean;
+import in.co.rays.proj4.model.RoleModel;
 import in.co.rays.proj4.model.UserModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
-import in.co.rays.proj4.util.ServletUtility;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/ctl/UserCtl")
 public class UserCtl extends BaseCtl<UserBean, UserModel> {
 
 //	public static final String OP_SIGN_UP = "SignUp";
-	
+	@Override
+	protected void preload(HttpServletRequest request) {
+		
+		RoleModel rmodel = new RoleModel();
+		List<RoleBean> roleList = rmodel.search(null, 0, 0);
+		request.setAttribute("roleList", roleList);
+	}
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
