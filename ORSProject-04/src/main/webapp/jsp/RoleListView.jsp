@@ -14,7 +14,7 @@
 <body>
 	<%@include file="Header.jsp"%>
 	<%
-	List<RoleBean> nl = (List<RoleBean>) request.getAttribute("nl");
+	int nl = (int) request.getAttribute("nl");
 	List<RoleBean> l = ServletUtility.getList(request);
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
@@ -70,7 +70,7 @@
 					value="<%=RoleListCtl.OP_DELETE%>"></td>
 				<td align="right"><input type="submit" name="operation"
 					value="<%=RoleListCtl.OP_NEXT%>"
-					<%=nl.size() == 0 ? "disabled" : ""%>></td>
+					<%=nl == 0 ? "disabled" : ""%>></td>
 				<!-- l.size() < pageSize -->
 			</tr>
 		</table>

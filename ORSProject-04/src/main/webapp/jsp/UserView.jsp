@@ -19,6 +19,7 @@
 	/* UserBean bean = (UserBean) ServletUtility.getBean(request); */
 	
 	%>
+	<!--upload photo  -->
 	<div align="center">
 		<%
 		if (bean.getId() > 0) {

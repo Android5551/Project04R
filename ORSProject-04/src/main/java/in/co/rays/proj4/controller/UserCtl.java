@@ -79,6 +79,7 @@ public class UserCtl extends BaseCtl<UserBean, UserModel> {
 		b.setLogin(DataUtility.getString(r.getParameter("login")));
 		b.setPassword(DataUtility.getString(r.getParameter("password")));
 		b.setConfirmPassword(DataUtility.getString(r.getParameter("confirmPassword")));
+		b.setGender(DataUtility.getString(r.getParameter("gender")));
 		b.setDob(DataUtility.getDate(r.getParameter("dob")));
 		b.setRoleId(2L); // role is student
 		

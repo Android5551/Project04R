@@ -17,7 +17,7 @@
 	<%@include file="Header.jsp"%>
 	<%
 	List<UserBean> l = ServletUtility.getList(request);
-	List<UserBean> nl = (List<UserBean>) request.getAttribute("nl");
+	int nl = (int) request.getAttribute("nl");
 
 	int pageNo = ServletUtility.getPageNo(request);
 	int pageSize = ServletUtility.getPageSize(request);
@@ -48,7 +48,7 @@
 						onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)">Select
 						All</th>
 					<th>S.No.</th>
-					<th>Id</th>
+					<th>Profile</th>
 					<th>FirstName</th>
 					<th>LastName</th>
 					<th>Login</th>
@@ -64,15 +64,17 @@
 				<tr align="center" style="background-color: lightgrey">
 					<td><input type="checkbox" name="ids" value="<%=b.getId()%>"></td>
 					<td><%=index++%></td>
-					<td><%=b.getId()%></td>
-
-					<td><%=b.getFirstName()%>
-					<td><%=b.getLastName()%>
-					<td><%=b.getLogin()%>
-					<td><%=b.getDob()%>
-					<td><%=b.getRoleId()%>
-					<td><%=b.getGender()%>
-					<td><a href="<%=ORSView.USER_CTL + "?id=" + b.getId()%>">Edit</a>
+					<td><img
+						src="<%=ORSView.UPLOAD_PHOTO_CTL + "?id=" + b.getId()%>"
+						width="60" height="60"
+						style="object-fit: cover; border-radius: 50%; border: 1px solid #ccc;"></td>
+					<td><%=b.getFirstName()%></td>
+					<td><%=b.getLastName()%></td>
+					<td><%=b.getLogin()%></td>
+					<td><%=b.getDob()%></td>
+					<td><%=b.getRoleId()%></td>
+					<td><%=b.getGender()%></td>
+					<td><a href="<%=ORSView.USER_CTL + "?id=" + b.getId()%>">Edit</a></td>
 				</tr>
 				<%
 				}
@@ -89,7 +91,7 @@
 						value="<%=UserListCtl.OP_DELETE%>"></td>
 					<td align="right"><input type="submit" name="operation"
 						value="<%=UserListCtl.OP_NEXT%>"
-						<%=nl.size() == 0 ? "disabled" : "" %>></td>
+						<%=nl == 0 ? "disabled" : "" %>></td>
 <%--  <%=l.size() < pageSize ? "disabled" : ""%>  --%>
 				</tr>
 

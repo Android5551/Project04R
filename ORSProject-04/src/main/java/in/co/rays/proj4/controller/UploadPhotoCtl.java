@@ -42,13 +42,10 @@ public class UploadPhotoCtl extends HttpServlet {
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		UserModel model = new UserModel();
+
 		UserBean bean = null;
 
-		try {
-			bean = model.findByPk(id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		bean = model.findByPk(id);
 
 		String photoPath = PropertyReader.getValue("photoPath");
 
@@ -65,10 +62,11 @@ public class UploadPhotoCtl extends HttpServlet {
 				OutputStream out = response.getOutputStream();
 
 				byte[] buffer = new byte[4096];
-				int bytes;
+				int bytes = in.read(buffer);
 
-				while ((bytes = in.read(buffer)) != -1) {
+				while (bytes != -1) {
 					out.write(buffer, 0, bytes);
+					bytes = in.read(buffer);
 				}
 
 				in.close();
@@ -78,7 +76,7 @@ public class UploadPhotoCtl extends HttpServlet {
 			}
 		}
 
-		// Default photo
+		// Get Default photo
 		InputStream in = getServletContext().getResourceAsStream("/img/logo.png");
 
 		response.setContentType("image/png");
@@ -86,15 +84,17 @@ public class UploadPhotoCtl extends HttpServlet {
 		OutputStream out = response.getOutputStream();
 
 		byte[] buffer = new byte[4096];
-		int bytes;
+		int bytes = in.read(buffer);
 
-		while ((bytes = in.read(buffer)) != -1) {
+		while (bytes != -1) {
 			out.write(buffer, 0, bytes);
+			bytes = in.read(buffer);
 		}
 
 		in.close();
 		out.close();
 	}
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
