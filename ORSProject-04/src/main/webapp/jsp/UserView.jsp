@@ -17,6 +17,7 @@
 
 	<%@ include file="Header.jsp"%>
 	<jsp:useBean id="bean" class="in.co.rays.proj4.bean.UserBean" scope="request"></jsp:useBean>
+
 	<%
 	String err = ServletUtility.getErrorMessage(request);
 	String succ = ServletUtility.getSuccessMessage(request);
@@ -44,7 +45,7 @@
 					<th>Photo</th>
 				</tr>
 
-				<tr> <!-- here doGet will run as id is getting appended. -->
+				<tr> <!-- here doGet will run as id is getting appended. this displays image-->
 					<td align="center"><img
 						src="<%=ORSView.UPLOAD_PHOTO_CTL%>?id=<%=bean.getId()%>"
 						width="80"
@@ -54,10 +55,12 @@
 				</tr>
 
 				<tr>
+				<!-- Browse... No file Selected -->
 					<td align="center"><input type="file" name="photo"
 						accept="image/*"></td>
 				</tr>
-
+				
+				<!-- upload photo button -->
 				<tr>
 					<td align="center"><input type="submit" value="Upload Photo">
 					</td>
@@ -71,12 +74,13 @@
 		}
 		%>
 	</div>
+	<!-- Add / Update User -->
 	<form action="<%=ORSView.USER_CTL%>" method="post">
 		<input type="hidden" name="id"
 			value="<%=DataUtility.getStringData(bean.getId())%>">
 		<div align="center">
 
-			<!-- <h1>Add User</h1> -->
+			
 			<h1><%=bean != null && bean.getId() > 0 ? "Update User" : "Add User"%></h1>
 			<h3 style="color: green"><%=succ%></h3>
 			<h3 style="color: red"><%=err%></h3>
@@ -125,28 +129,19 @@
 
 				<tr>
 					<th>Gender<font color="red">*</font></th>
-					<td><%=HTMLUtility.getList("gender", DataUtility.getStringData(bean.getGender()), map)%>
-					<!-- <select name='gender'>
-							<option selected value=''>------------Select-------------</option>
-							<option value="female">female</option>
-							<option value="male">male</option>
-					</select> -->
+					<td>
+					<%=HTMLUtility.getList("gender", DataUtility.getStringData(bean.getGender()), map)%>
+					
 					</td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("gender", request)%></td>
 				</tr>
 				<tr>
 					<th>Role<font color="red">*</font></th>
-					<td><%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getRoleId()), roleList)%>
-					<!-- <select name='roleId'>
-							<option selected value=''>------------Select-------------</option>
-							<option value='1'>admin</option>
-							<option value='2'>student</option>
-							<option value='3'>faculty</option>
-							<option value='4'>college</option>
-							<option value='5'>KIOSK</option>
-					</select> -->
+					<td>
+					<%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getRoleId()), roleList)%>
+					
 					</td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("role", request)%></td>
+					<td style="color: red"><%=ServletUtility.getErrorMessage("roleId", request)%></td>
 				</tr>
 
 				<tr>

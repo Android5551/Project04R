@@ -27,7 +27,7 @@ public class UploadPhotoCtl extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		long id = DataUtility.getLong(req.getParameter("id"));
 		UserModel model = new UserModel();
-		UserBean bean = model.findByPk(id);
+		UserBean bean = model.findByPk(id); //select * from st_user where id=?
 		ServletUtility.setBean(bean, req);
 		//		RoleModel model = new RoleModel();
 //		try {
@@ -109,35 +109,43 @@ public class UploadPhotoCtl extends HttpServlet {
 //		ServletUtility.setBean(bean, request);
 
 		// Get uploaded photo
+		// to get specific part of multi part request; here it is photo.
 		Part part = request.getPart("photo");
-
+		
+		// Input validation: Check if photo is uploaded or not
 		if (part == null || part.getSize() == 0) {
 			ServletUtility.setErrorMessage("Photo is required", request);
 			ServletUtility.forward(getView(), request, response);
 			return;
 		}
-
+		// gets photo's original file name
 		String fileName = part.getSubmittedFileName();
 
 		System.out.println("image name: " + fileName);
-
+		// gets image folder path from properties file
 		String photoPath = PropertyReader.getValue("photoPath");
 
 		System.out.println("folder path: " + photoPath);
-
+		// created file's object and passed folder path.
 		File folder = new File(photoPath);
-
+		// if folder doesn't exist, create it.
 		if (!folder.exists()) {
 			folder.mkdirs();
 		}
-
+		// Creates a file at the specified folder with the given file name
 		File destFile = new File(folder, fileName);
-
+		System.out.println(destFile); //C:\Users\Piyush\Documents\CODING\REPEAT\Mission-Project04\img\m3.png
+		// Reads the uploaded photo's data as bytes
 		InputStream input = part.getInputStream();
+		// writes that data into the destination file.
 		FileOutputStream output = new FileOutputStream(destFile);
-
-		byte[] buffer = new byte[4096];
-
+		/* Creates a temporary storage space to read the photo's data in chunks
+		 * Instead of reading the entire photo at once, 
+		 * we can read it in small chunks and write each chunk to the destination file.
+		 * For example, a 1 MB photo can be copied in multiple chunks using this 4 KB buffer.
+		 */
+		byte[] buffer = new byte[4096]; //4kb
+		
 		int bytesRead = input.read(buffer);
 
 		while (bytesRead != -1) {
@@ -150,7 +158,7 @@ public class UploadPhotoCtl extends HttpServlet {
 
 		try {
 			UserModel model = new UserModel();
-			model.updatephoto(id, fileName);
+			model.updatephoto(id, fileName); //1 row updated!
 			ServletUtility.setSuccessMessage("photo upload successfully", request);
 
 			System.out.println("Photo uploaded successfully: " + fileName);

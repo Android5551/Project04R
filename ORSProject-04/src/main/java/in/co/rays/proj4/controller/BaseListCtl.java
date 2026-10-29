@@ -12,7 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> extends BaseCtl<B, M>{
+public abstract class BaseListCtl<B extends BaseBean, M extends BaseModel> extends BaseCtl<B, M> {
 	// it will override baseCtl's do get
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -23,18 +23,19 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 		int pageSize = 5;
 		System.out.println("do Get of BaseListCtl");
 		System.out.println("list");
-		List<B> list = model.search(bean, 1, 5);
+		List<B> list = model.search(bean, 1, 5); // select * from st_user where 1=1 limit(0,5)
 		System.out.println("Nextlist");
-		List<B> nl = model.search(bean, pageNo+1, pageSize);
-		request.setAttribute("nl",nl.size());
+		List<B> nl = model.search(bean, pageNo + 1, pageSize);
+		System.out.println("-----------------");
+		// select * from st_user where 1=1 limit(5,5)
+		request.setAttribute("nl", nl.size());
 		ServletUtility.setList(list, request);
 		ServletUtility.setPageNo(pageNo, request);
 		ServletUtility.setPageSize(pageSize, request);
-		
-		
+
 		ServletUtility.forward(getView(), request, response);
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("In doPost of BaseListCtl");
@@ -44,46 +45,48 @@ public abstract class BaseListCtl <B extends BaseBean,M extends BaseModel> exten
 		int pageSize = 5;
 		B bean = populateBean(req);
 		M model = getModel();
-		
-		if(OP_DELETE.equalsIgnoreCase(op)) {
+
+		if (OP_DELETE.equalsIgnoreCase(op)) {
 			pageNo = DataUtility.getInt(req.getParameter("pageNo"));
-			String [] ids = req.getParameterValues("ids");
-			System.out.println("-----------I D S "+ids);
-			if(ids != null && ids.length>0) {
-				for(String id : ids) {
+			String[] ids = req.getParameterValues("ids");
+			System.out.println("-----------I D S " + ids);
+			if (ids != null && ids.length > 0) {
+				for (String id : ids) {
 					model.delete(DataUtility.getInt(id));
 					ServletUtility.setSuccessMessage("record deleted successfully", req);
-					
+
 				}
-			}else {
+			} else {
 				ServletUtility.setErrorMessage("Select at least one record to delete", req);
 			}
 		}
-		if(OP_NEXT.equalsIgnoreCase(op)) {
+		if (OP_NEXT.equalsIgnoreCase(op)) {
 			System.out.println("in next");
 			pageNo = DataUtility.getInt(req.getParameter("pageNo"));
 			System.out.println(pageNo);
 			pageNo++;
 			System.out.println(pageNo);
 		}
-		if(OP_PREVIOUS.equalsIgnoreCase(op)) {
+		if (OP_PREVIOUS.equalsIgnoreCase(op)) {
 			pageNo = DataUtility.getInt(req.getParameter("pageNo"));
 			pageNo--;
 		}
-		if(OP_SEARCH.equalsIgnoreCase(op)) {
-			pageNo = 1; 
+		if (OP_SEARCH.equalsIgnoreCase(op)) {
+			pageNo = 1;
 		}
-		
+
 		System.out.println("list");
 		List<B> l = model.search(bean, pageNo, pageSize);
+		// select * from st_user where 1=1 and first_name like 'A%' limit(0,5)
 		System.out.println("Nextlist");
-		List<B> nl	= model.search(bean, pageNo+1, pageSize);
+		List<B> nl = model.search(bean, pageNo + 1, pageSize);
+		System.out.println("-----------------");
 		req.setAttribute("nl", nl.size());
 		ServletUtility.setList(l, req);
 		ServletUtility.setPageNo(pageNo, req);
 		ServletUtility.setPageSize(pageSize, req);
-		
+
 		ServletUtility.forward(getView(), req, resp);
-		
+
 	}
 }

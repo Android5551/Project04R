@@ -1,3 +1,6 @@
+<%@page import="in.co.rays.proj4.util.DataUtility"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="in.co.rays.proj4.util.HTMLUtility"%>
 <%@page import="in.co.rays.proj4.controller.RoleCtl"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="in.co.rays.proj4.controller.UserCtl"%>
@@ -15,7 +18,14 @@
 </head>
 <body>
 	<%@include file="Header.jsp"%>
+	<jsp:useBean id="bean" class="in.co.rays.proj4.bean.UserBean"
+		scope="request"></jsp:useBean>
 	<%
+	/* error and success message */
+	String err = ServletUtility.getErrorMessage(request);
+	String succ = ServletUtility.getSuccessMessage(request);
+
+	/* List and NextList */
 	List<UserBean> l = ServletUtility.getList(request);
 	int nl = (int) request.getAttribute("nl");
 
@@ -23,10 +33,12 @@
 	int pageSize = ServletUtility.getPageSize(request);
 	int index = (pageNo - 1) * pageSize + 1;
 	Iterator<UserBean> it = l.iterator();
+
+	/* Gender */
+	HashMap<String, String> genderMap = new HashMap<String, String>();
+	genderMap.put("male", "male");
+	genderMap.put("female", "female");
 	
-	
-	String err = ServletUtility.getErrorMessage(request);
-	String succ = ServletUtility.getSuccessMessage(request);
 	%>
 	<div align="center">
 		<h1>User List</h1>
@@ -34,13 +46,26 @@
 			<h3 style="color: red"><%=err%></h3>
 			<h3 style="color: green"><%=succ%></h3>
 			<table>
+				<!-- search filters -->
 				<tr>
 					<th>First Name</th>
 					<td><input type="text" name="firstName" value=""
 						placeholder="Search by first name"> <input type="submit"
 						name="operation" value="<%=UserListCtl.OP_SEARCH%>"></td>
+						
+					<th>Gender</th>
+					<td><%=HTMLUtility.getList("gender", DataUtility.getStringData(bean.getGender()), genderMap)%>
+					<td><input type="submit" name="operation"
+						value="<%=UserListCtl.OP_SEARCH%>"></td>
+					
+					<th>RoleId</th>
+					<td><%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getRoleId()), l) %></td>
+					<td><input type="submit" name="operation"
+						value="<%=UserListCtl.OP_SEARCH%>"></td>
 				</tr>
+
 			</table>
+			<!-- checkbox to select all users and delete them. -->
 			<input type="hidden" name=pageNo value="<%=pageNo%>">
 			<table border="1px" width="100%">
 				<tr style="background-color: skyblue">
@@ -83,16 +108,15 @@
 			</table>
 			<table width="100%">
 				<tr>
-				<% %>
+
 					<td align="left"><input type="submit" name="operation"
 						value="<%=UserListCtl.OP_PREVIOUS%>"
 						<%=pageNo == 1 ? "disabled" : ""%>></td>
 					<td align="center"><input type="submit" name="operation"
 						value="<%=UserListCtl.OP_DELETE%>"></td>
 					<td align="right"><input type="submit" name="operation"
-						value="<%=UserListCtl.OP_NEXT%>"
-						<%=nl == 0 ? "disabled" : "" %>></td>
-<%--  <%=l.size() < pageSize ? "disabled" : ""%>  --%>
+						value="<%=UserListCtl.OP_NEXT%>" <%=nl == 0 ? "disabled" : ""%>></td>
+					<%--  <%=l.size() < pageSize ? "disabled" : ""%>  --%>
 				</tr>
 
 			</table>

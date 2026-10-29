@@ -34,6 +34,7 @@ public class HTMLUtility {
 	}
 
 	// dynamic pre-load
+	// roleId, DataUtility.getStringData(bean.getRoleId), RoleList
 	public static String getList(String name, String selectedVal, List list) {
 
 		List<DropdownListBean> dd = (List<DropdownListBean>) list;
@@ -65,15 +66,15 @@ public class HTMLUtility {
 		return sb.toString();
 	}
 
-	public static void main(String[] args) {
-
-		HashMap<String, String> map = new HashMap<String, String>();
-
-		map.put("male", "male");
-		map.put("female", "female");
-
-		System.out.println(getList("gender", "male", map));
-
-	}
+//	public static void main(String[] args) {
+//
+//		HashMap<String, String> map = new HashMap<String, String>();
+//
+//		map.put("male", "male");
+//		map.put("female", "female");
+//
+//		System.out.println(getList("gender", "male", map));
+//
+//	}
 
 }

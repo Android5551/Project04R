@@ -85,7 +85,7 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 			throws ServletException, IOException {
 		System.out.println("service method");
 		preload(request);
-		System.out.println(request.getMethod()+" "+request.getParameter("operation"));
+//		System.out.println(request.getMethod()+" "+request.getParameter("operation"));
 		getMessageSource(request);
 
 		if (request.getMethod() == "POST" && validate(request) == false) {
@@ -93,7 +93,7 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 			ServletUtility.setBean(bean, request);
 			System.out.println("In service's if");
 			ServletUtility.forward(getView(), request, response);
-			System.out.println("in service");
+//			System.out.println("in service");
 			return;
 		}
 
@@ -124,7 +124,8 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 		
 		try {
 			if (bean.getId() > 0) {
-				model.update(bean);
+				model.update(bean); // existBean = findbylogin(bean.getLogin())
+				// if(existBean!=null && existBean.getId()!=bean.getId()) throw new DuplicateRecordException
 				ServletUtility.setSuccessMessage("record is successfully updated", req);
 			} else {
 				model.add(bean);
@@ -134,10 +135,10 @@ public abstract class BaseCtl<B extends BaseBean, M extends BaseModel> extends H
 			ServletUtility.setErrorMessage("record already exist", req);
 			System.out.println("in baseCtl catch");
 		}
-		ServletUtility.setBean(bean, req);
+//		ServletUtility.setBean(bean, req);
 		ServletUtility.forward(getView(), req, resp);
 
-		super.doPost(req, resp);
+//		super.doPost(req, resp);
 	}
 
 	public abstract M getModel();

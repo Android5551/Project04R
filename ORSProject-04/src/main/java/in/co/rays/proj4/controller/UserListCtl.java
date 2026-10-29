@@ -17,14 +17,9 @@ public class UserListCtl extends BaseListCtl<UserBean, UserModel>{
 		b.setLogin(DataUtility.getString(request.getParameter("login")));
 		
 		b.setDob(DataUtility.getDate(request.getParameter("dob")));
-//		b.setMobileNo(DataUtility.getString(request.getParameter("mobile_no")));
 		b.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
-//		b.setUnsuccessfulLogin(DataUtility.getInt(request.getParameter("unsuccessful_login")));
 		b.setGender(DataUtility.getString(request.getParameter("gender")));
-//		b.setLastLogin(DataUtility.getTimestamp(request.getParameter("last_login")));
-//		b.setUserLock(DataUtility.getString(request.getParameter("user_lock")));
-//		b.setRegisteredIp(DataUtility.getString(request.getParameter("registered_ip")));
-//		b.setLastLoginIp(DataUtility.getString(request.getParameter("last_login_ip")));
+
 
 
 		return b;

@@ -147,7 +147,7 @@ public class UserBean extends BaseBean{
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return null;
+		return roleId+"";
 	}
 //first_name, last_name, login, password, dob, mobile_no, role_id, 
 	// unsuccessful_login, gender, 

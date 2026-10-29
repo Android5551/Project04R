@@ -134,6 +134,12 @@ public class UserModel extends BaseModel<UserBean>{
 			if(b.getMobileNo() != null && b.getMobileNo().length()>0) {
 				s.append(" and mobile_no like '"+b.getMobileNo()+"%'");
 			}
+			if(b.getGender()!=null && b.getGender().length()>0) {
+				s.append(" and gender like '"+b.getGender()+"%'");
+			}
+			if(b.getRoleId() > 0) {
+				s.append(" and role_id like '"+b.getRoleId()+"%'");
+			}
 		}
 		return s.toString();
 	}
