@@ -36,9 +36,12 @@ public class HTMLUtility {
 	// dynamic pre-load
 	// roleId, DataUtility.getStringData(bean.getRoleId), RoleList
 	public static String getList(String name, String selectedVal, List list) {
-
+		/*
+		 * Typecasts roleList into List<DropdownListBean> so we can access RoleBean
+		 * objects through getKey() and getValue().
+		 * */
 		List<DropdownListBean> dd = (List<DropdownListBean>) list;
-
+		
 		StringBuffer sb = new StringBuffer("<select class='form-control' name='" + name + "'>");
 
 		String key = null;
@@ -50,9 +53,12 @@ public class HTMLUtility {
 		}
 
 		for (DropdownListBean obj : dd) {
-			key = obj.getKey();
-			val = obj.getValue();
-
+			key = obj.getKey(); //id
+			System.out.println(obj.getClass().getName());
+			
+			val = obj.getValue(); //name
+		
+		
 			if (key.trim().equals(selectedVal)) {
 				sb.append("<option selected value='" + key + "'>" + val + "</option>");
 			} else {

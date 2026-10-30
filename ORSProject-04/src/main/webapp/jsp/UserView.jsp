@@ -25,7 +25,7 @@
 	HashMap<String, String> map = new HashMap<String, String>();
 	map.put("male", "male");
 	map.put("female", "female");
-	/* UserBean bean = (UserBean) ServletUtility.getBean(request); */
+	
 	
 	%>
 	<!--upload photo  -->
@@ -126,7 +126,7 @@
 						placeholder="re-enter your password"></td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("confirmPassword", request)%></td>
 				</tr>
-
+				<!-- static preload -->
 				<tr>
 					<th>Gender<font color="red">*</font></th>
 					<td>
@@ -135,6 +135,7 @@
 					</td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("gender", request)%></td>
 				</tr>
+				<!-- dynamic preload -->
 				<tr>
 					<th>Role<font color="red">*</font></th>
 					<td>

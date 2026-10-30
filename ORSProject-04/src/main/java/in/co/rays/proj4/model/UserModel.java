@@ -7,6 +7,7 @@ import java.util.HashMap;
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
+import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.EmailBuilder;
 import in.co.rays.proj4.util.EmailMessage;
 import in.co.rays.proj4.util.EmailUtility;
@@ -139,6 +140,9 @@ public class UserModel extends BaseModel<UserBean>{
 			}
 			if(b.getRoleId() > 0) {
 				s.append(" and role_id like '"+b.getRoleId()+"%'");
+			}
+			if(b.getDob() != null && b.getDob().getTime() > 0) {
+				s.append(" and dob like '"+DataUtility.getDateString(b.getDob())+"%'");
 			}
 		}
 		return s.toString();

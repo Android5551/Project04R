@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import in.co.rays.proj4.util.DataUtility;
+
 public class UserBean extends BaseBean{
     private String firstName;
     private String lastName;
@@ -144,10 +146,13 @@ public class UserBean extends BaseBean{
 		this.lastLoginIp = lastLoginIp;
 	}
 
+	/*
+	 * @Override public String getKey() { return DataUtility.getDateString(dob); }
+	 */
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return roleId+"";
+		return null;
 	}
 //first_name, last_name, login, password, dob, mobile_no, role_id, 
 	// unsuccessful_login, gender, 

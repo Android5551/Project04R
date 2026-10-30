@@ -39,6 +39,7 @@
 	genderMap.put("male", "male");
 	genderMap.put("female", "female");
 	
+
 	%>
 	<div align="center">
 		<h1>User List</h1>
@@ -50,16 +51,26 @@
 				<tr>
 					<th>First Name</th>
 					<td><input type="text" name="firstName" value=""
-						placeholder="Search by first name"> <input type="submit"
-						name="operation" value="<%=UserListCtl.OP_SEARCH%>"></td>
+						placeholder="Search by first name"></td>
+					
+					<th>Last Name</th>
+					<td><input type="text" name="lastName" value=""
+						placeholder="Search by last name"></td>
 						
 					<th>Gender</th>
 					<td><%=HTMLUtility.getList("gender", DataUtility.getStringData(bean.getGender()), genderMap)%>
-					<td><input type="submit" name="operation"
-						value="<%=UserListCtl.OP_SEARCH%>"></td>
+					
 					
 					<th>RoleId</th>
-					<td><%=HTMLUtility.getList("roleId", DataUtility.getStringData(bean.getRoleId()), l) %></td>
+					<td><input type="text" name="roleId" value="" placeholder="enter role id"></td>
+					
+					<th>DOB</th>
+					<!-- <td><input type="date" name="dob"></td> -->
+					<td><%=HTMLUtility.getList("dob", DataUtility.getStringData(bean.getDob()), l) %>
+					
+					
+						
+					<!-- search button -->
 					<td><input type="submit" name="operation"
 						value="<%=UserListCtl.OP_SEARCH%>"></td>
 				</tr>
