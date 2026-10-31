@@ -90,7 +90,7 @@ public class StudentBean extends BaseBean{
 		try {
 			// set in b and get from rs
 			setCollegeId(rs.getLong("college_id"));
-			setCollegeName(rs.getString("college_name"));
+//			setCollegeName(rs.getString("college_name"));
 			setFirstName(rs.getString("first_name"));
 			setLastName(rs.getString("last_name"));
 			setDateOfBirth(rs.getDate("date_of_birth"));

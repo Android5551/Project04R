@@ -35,7 +35,7 @@ public class StudentCtl extends BaseCtl<StudentBean, StudentModel> {
 			pass = false;
 		}
 		if (DataValidator.isNull(request.getParameter("dateOfBirth"))) {
-			request.setAttribute("dateOfBirth", "dateOfBirth is required");
+			request.setAttribute("dateOfBirth", "dob is required");
 			pass = false;
 		}
 		if (DataValidator.isNull(request.getParameter("mobileNo"))) {
@@ -50,11 +50,7 @@ public class StudentCtl extends BaseCtl<StudentBean, StudentModel> {
 			pass = false;
 		}
 		if (DataValidator.isNull(request.getParameter("collegeId"))) {
-			request.setAttribute("collegeId", "collegeId is required");
-			pass = false;
-		}
-		if (DataValidator.isNull(request.getParameter("collegeName"))) {
-			request.setAttribute("collegeName", "collegeName is required");
+			request.setAttribute("collegeId", "college is required");
 			pass = false;
 		}
 		return pass;
@@ -64,7 +60,7 @@ public class StudentCtl extends BaseCtl<StudentBean, StudentModel> {
 	protected StudentBean populateBean(HttpServletRequest request) {
 		StudentBean b = new StudentBean();
 		b.setCollegeId(DataUtility.getLong(request.getParameter("collegeId")));
-		b.setCollegeName(DataUtility.getString(request.getParameter("collegeName")));
+//		b.setCollegeName(DataUtility.getString(request.getParameter("collegeName")));
 		b.setFirstName(DataUtility.getString(request.getParameter("firstName")));
 		b.setLastName(DataUtility.getString(request.getParameter("lastName")));
 		b.setDateOfBirth(DataUtility.getDate(request.getParameter("dateOfBirth")));

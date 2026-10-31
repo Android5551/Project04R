@@ -53,10 +53,11 @@ public class LoginCtl extends BaseCtl<UserBean, UserModel> {
 			HttpSession session = request.getSession();
 			session.invalidate();
 		}
-
+		ServletUtility.setSuccessMessage("You have been successfully logged out", request);
 		ServletUtility.forward(getView(), request, response);
 
 	}
+	
 
 	@Override
 	protected UserBean populateBean(HttpServletRequest r) {

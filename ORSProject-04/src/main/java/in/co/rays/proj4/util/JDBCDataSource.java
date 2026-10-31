@@ -118,4 +118,11 @@ public final class JDBCDataSource {
 			}
 		}
 	}
+	public static void closePool() {
+	    if (jdbc != null && jdbc.c != null) {
+	        jdbc.c.close();
+	        jdbc = null;
+	    }
+	}
 }
+
