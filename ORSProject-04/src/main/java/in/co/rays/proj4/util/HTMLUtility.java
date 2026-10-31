@@ -58,7 +58,7 @@ public class HTMLUtility {
 			
 			val = obj.getValue(); //name
 		
-		
+			
 			if (key.trim().equals(selectedVal)) {
 				sb.append("<option selected value='" + key + "'>" + val + "</option>");
 			} else {

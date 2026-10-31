@@ -23,7 +23,7 @@
 	<form action="<%=ORSView.ROLE_CTL%>" method="post">
 
 		<div align="center">
-			<input type="text" name="id" value="<%=DataUtility.getStringData(bean.getId())%>">
+			<input type="hidden" name="id" value="<%=DataUtility.getStringData(bean.getId())%>">
 			<h1><%=bean != null && bean.getId() > 0 ? "Update Role":"Add Role"  %></h1>
 			<h3 style="color:green"><%=succ %></h3>
 			<h3 style="color:red"><%=err %></h3>

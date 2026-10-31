@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%@ include file="Header.jsp"%>
+	<div align="center">
+	<h1>Add Faculty</h1>
+		<form action="<%=ORSView.FACULTY_CTL%>" method="post"></form>
+		
+	</div>
+	<%@ include file="Footer.jsp"%>
+</body>
+</html>
