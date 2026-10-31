@@ -49,12 +49,12 @@ public class HTMLUtility {
 
 		boolean select = true;
 		if (select) {
-			sb.append("<option selected value=''>------------Select-------------</option>");
+			sb.append("<option selected value=''>----------Select----------</option>");
 		}
 
 		for (DropdownListBean obj : dd) {
 			key = obj.getKey(); //id
-			System.out.println(obj.getClass().getName());
+			System.out.println(obj.getClass().getName()); //in.co.rays.proj4.bean.RoleBean
 			
 			val = obj.getValue(); //name
 		

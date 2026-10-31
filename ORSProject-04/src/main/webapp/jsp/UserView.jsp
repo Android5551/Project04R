@@ -135,7 +135,7 @@
 					</td>
 					<td style="color: red"><%=ServletUtility.getErrorMessage("gender", request)%></td>
 				</tr>
-				<!-- dynamic preload -->
+				<!-- dynamic preload getting rolebean's rolename from userbean's role_id-->
 				<tr>
 					<th>Role<font color="red">*</font></th>
 					<td>

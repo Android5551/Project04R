@@ -26,10 +26,11 @@
 				%>
 
 				<h2><%=welcomeMsg + user.getFirstName() + " (" + role + ")"%></h2> <a
-				href="<%=ORSView.ROLE_CTL%>">Add Role</a> | <a
-				href="<%=ORSView.ROLE_LIST_CTL%>">Role List</a> | <a
 				href="<%=ORSView.USER_CTL%>">Add User</a> | <a
 				href="<%=ORSView.USER_LIST_CTL%>">User List</a> | <a
+				href="<%=ORSView.ROLE_CTL%>">Add Role</a> | <a
+				href="<%=ORSView.ROLE_LIST_CTL%>">Role List</a> | <a
+				href="<%=ORSView.STUDENT_CTL%>">Add Student</a> | <a
 				href="<%=ORSView.COLLEGE_LIST_CTL%>">College List</a> | <a
 				href="<%=ORSView.CHANGE_PASSWORD_CTL%>">Change Password</a> | <a
 				href="<%=ORSView.LOGIN_CTL + "?operation=logout"%>">Logout</a> | <%
